@@ -7,6 +7,7 @@ import KeluargaTable from '@/components/asset/KeluargaTable.vue'
 import InputWarga from '@/components/asset/InputWarga.vue'
 import WargaTable from '@/components/asset/WargaTable.vue'
 import WargaKomplitTable from '@/components/asset/WargaKomplitTable.vue'
+import InputSetoran from '@/components/asset/InputSetoran.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -50,6 +51,11 @@ const router = createRouter({
           path: 'list/table/komplit',
           name: 'table_komplit',
           component: WargaKomplitTable,
+        },
+        {
+          path: 'setor/warga/:id',
+          name: 'setor_warga',
+          component: InputSetoran,
         },
       ]
     },

@@ -82,6 +82,7 @@ export default {
       }).then((response)=>{
         this.hasilTambahKK = response.data;
         console.log(this.hasilTambahKK);
+        this.$router.push('/asset/daftar/kk');
       }).catch(error=>{console.error(error)});
     }
   }

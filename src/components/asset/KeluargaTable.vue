@@ -4,7 +4,7 @@
         <div class="container-fluid">
           <div class="row mb-2">
             <div class="col-sm-6">
-              <h1>Daftar Warga RT01/14</h1>
+              <h1>Daftar Rumah Warga RT01/14</h1>
             </div>
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
@@ -28,11 +28,12 @@
   
                   <div class="card-tools">
                     <div class="input-group input-group-sm" style="width: 150px;">
-                      <input type="text" name="table_search" class="form-control float-right" placeholder="Search">
+                      
   
                       <div class="input-group-append">
-                        <button type="submit" class="btn btn-default">
-                          <i class="fas fa-search"></i>
+                        <button type="submit" class="btn btn-default" @click="tambahKK">
+                          Tambah KK Baru
+                          <i class="fas fa-user-plus"></i>
                         </button>
                       </div>
                     </div>
@@ -56,7 +57,7 @@
                         <td>C{{resultku.no_blok}}</td>
                         <td>{{resultku.no_rumah}}</td>
                         <td>{{resultku.no_kk}}</td>
-                        <td><router-link :to="`/asset/new/warga/${resultku.id}`"><i class="fa fa-user" aria-hidden="true"></i></router-link></td>
+                        <td><router-link :to="`/asset/new/warga/${resultku.id}`" ><i class="fa fa-user" aria-hidden="true"></i></router-link>&nbsp;&nbsp;<router-link :to="`/asset/list/warga/${resultku.id}`" ><i class="fa fa-list" aria-hidden="true"></i></router-link>&nbsp;&nbsp;<router-link :to="`/asset/setor/warga/${resultku.id}`" ><i class="fa fa-calendar" aria-hidden="true"></i></router-link></td>
                       </tr>
                     </tbody>
                   </table>
@@ -91,6 +92,9 @@ import { BASE_URL } from '../../base.url.util';
                     this.dataKeluarga = response.data;
                     console.log(this.dataKeluarga);
                 })
+            },
+            tambahKK() {
+              this.$router.push('/asset/new/asset');
             }
         },
         created(){

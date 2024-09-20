@@ -10,18 +10,19 @@
       aria-atomic="true"
       ref="toast"
     >
-    {{title}}
+    <strong class="me-auto">{{title}}</strong>
+    
       <div class="d-flex">
         <div class="toast-body">
           {{ description }}
         </div>
         <button
           type="button"
-          class="btn-close btn-close-white me-2 m-auto"
+          class="btn-close btn-primary"
           data-bs-dismiss="toast"
           aria-label="Close"
           @click="$emit('closeButton')"
-        ></button>
+        >Close</button>
       </div>
     </div>
   </div>

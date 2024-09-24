@@ -8,6 +8,7 @@ import InputWarga from '@/components/asset/InputWarga.vue'
 import WargaTable from '@/components/asset/WargaTable.vue'
 import WargaKomplitTable from '@/components/asset/WargaKomplitTable.vue'
 import InputSetoran from '@/components/asset/InputSetoran.vue'
+import InputAnggaran from '@/components/asset/InputAnggaran.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -56,6 +57,11 @@ const router = createRouter({
           path: 'setor/warga/:id',
           name: 'setor_warga',
           component: InputSetoran,
+        },
+        {
+          path: 'input/anggaran',
+          name: 'input_anggaran',
+          component: InputAnggaran,
         },
       ]
     },

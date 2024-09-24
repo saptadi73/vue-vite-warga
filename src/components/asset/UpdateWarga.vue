@@ -5,36 +5,39 @@
         <div class="col-md-6">
           <div class="card card-primary">
             <div class="card-header">
-              <h3 class="card-title">Form Input Isian Arus Anggaran</h3>
+              <h3 class="card-title">Form Input Isian Warga</h3>
             </div>
             <form>
               <div class="card-body">
                 <div class="form-group">
-                  <label for="id_warga">Nama Warga</label>
-                  <div v-if="listNama">
-                    <select
-                      class="custom-select form-control-border"
-                      id="id_warga"
-                      v-model="formValues.id_warga"
-                    >
-                      <option
-                        v-for="resultmu in listNama.result"
-                        :key="resultmu.id"
-                        :value="`${resultmu.id}`"
-                      >
-                        {{ resultmu.nama }}
-                      </option>
-                    </select>
-                  </div>
+                  <label for="nik">Nomor NIK</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="nik"
+                    placeholder="nomor NIK"
+                    v-model="formValues.nik"
+                  />
                 </div>
 
                 <div class="form-group">
-                  <label for="id_jenis_anggaran">Jenis Pembiayaan/Pemasukan</label>
+                  <label for="nama">Nama</label>
+                  <input
+                    type="text"
+                    class="form-control"
+                    id="nama"
+                    placeholder="Nama"
+                    v-model="formValues.nama"
+                  />
+                </div>
+
+                <div class="form-group">
+                  <label for="type">Type Anggota Keluarga</label>
                   <div v-if="listType">
                     <select
                       class="custom-select form-control-border"
-                      id="id_jenis_anggaran"
-                      v-model="formValues.id_jenis_anggaran"
+                      id="type"
+                      v-model="formValues.id_type"
                     >
                       <option
                         v-for="resultmu in listType.result"
@@ -48,18 +51,16 @@
                 </div>
 
                 <div class="form-group">
-                  <label for="jenis_kelamin">Type Arus Anggaran</label>
+                  <label for="jenis_kelamin">Jenis Kelamin</label>
                   <select
                     class="custom-select form-control-border"
                     id="jenis_kelamin"
-                    v-model="formValues.type_anggaran"
+                    v-model="formValues.jenis_kelamin"
                   >
-                    <option value="1">Pemasukan</option>
-                    <option value="0">Pengeluaran</option>
+                    <option value="1">Laki-laki</option>
+                    <option value="0">Perempuan</option>
                   </select>
                 </div>
-
-
               </div>
             </form>
           </div>
@@ -67,37 +68,36 @@
         <div class="col-md-6">
           <div class="card card-primary">
             <div class="card-header">
-              <h3 class="card-title">Form Input Isian Arus Anggaran</h3>
+              <h3 class="card-title">Form Input Isian Warga</h3>
             </div>
             <div class="card-body">
               <div class="form-group">
-                <label for="nilai">Nilai</label>
-                <input
-                  type="number"
-                  class="form-control"
-                  id="nilai"
-                  placeholder="00000"
-                  v-model="formValues.nilai"
-                />
-              </div>
-              <div>
-                <label for="tanggal">Tanggal</label>
-                <flat-pickr
-                  v-model="tanggal"
-                  :config="config"
-                  class="form-control"
-                  id="tanggal"
-                ></flat-pickr>
-              </div>
-
-              <div class="form-group">
-                <label for="keterangan">Keterangan</label>
+                <label for="tempat_lahir">Tempat Lahir</label>
                 <input
                   type="text"
                   class="form-control"
-                  id="keterangan"
-                  placeholder="keterangan"
-                  v-model="formValues.keterangan"
+                  id="tempat_lahir"
+                  placeholder="Tempat Lahir"
+                  v-model="formValues.tempat_lahir"
+                />
+              </div>
+              <div>
+                <label for="tanggal_lahir">Tanggal lahir:</label>
+                <flat-pickr
+                  v-model="tanggal_lahir"
+                  :config="config"
+                  class="form-control"
+                  id="tanggal_lahir"
+                ></flat-pickr>
+              </div>
+              <div class="form-group">
+                <label for="no_hp">No HP/WA</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="no_hp"
+                  placeholder="No HP/WA"
+                  v-model="formValues.no_hp"
                 />
               </div>
             </div>
@@ -105,7 +105,7 @@
               <button
                 type="submit"
                 class="btn btn-primary"
-                @click="submitTambahAnggaran"
+                @click="submitTambahWarga"
               >
                 Submit
               </button>
@@ -138,11 +138,10 @@ export default {
   data() {
     return {
       formValues: {},
-      tanggal: null,
+      tanggal_lahir: null,
       hasilTambahWarga: "",
-      hasilCariWarga: "",
+      cariWarga: {},
       listType: {},
-      listNama: {},
       config: {
         enableTime: false, // Hanya date picker
         dateFormat: "Y-m-d", // Format tanggal
@@ -150,12 +149,12 @@ export default {
     };
   },
   methods: {
-    async submitTambahAnggaran() {
-      this.formValues.id_warga = parseInt(this.formValues.id_warga);
-      const url = BASE_URL + "bayar/add/anggaran";
-      (this.formValues.tanggal = this.tanggal + " 00:00:00"),
-        (this.formValues.id_jenis_anggaran = parseInt(this.formValues.id_jenis_anggaran));
-        this.formValues.nilai = parseInt(this.formValues.nilai);
+    async submitUpdateWarga() {
+      const idku = this.$route.params.id;
+      const url = BASE_URL + "warga/add/warga";
+      (this.formValues.tanggal_lahir = this.tanggal_lahir + " 00:00:00"),
+        (this.formValues.id_type = parseInt(this.formValues.id_type));
+      this.formValues.id_kk = parseInt(idku);
       await axios
         .post(url, this.formValues, {
           headers: {
@@ -181,24 +180,13 @@ export default {
       console.log(this.formValues);
     },
 
-    async listJenisAnggaran() {
-      const url = BASE_URL + "bayar/list/jenis/anggaran";
+    async listTypeku() {
+      const url = BASE_URL + "warga/list/type";
       await axios
         .get(url)
         .then((response) => {
           this.listType = response.data;
           console.log(this.listType);
-        })
-        .catch((error) => console.error(error));
-    },
-
-    async listWarga() {
-      const url = BASE_URL + "warga/list/all";
-      await axios
-        .get(url)
-        .then((response) => {
-          this.listNama = response.data;
-          console.log(this.listNama);
         })
         .catch((error) => console.error(error));
     },
@@ -209,10 +197,44 @@ export default {
         this.$router.push("/asset/daftar/kk");
       }
     },
+
+    async findWarga() {
+      const idWarga = this.$routes.params.id;
+      const url = BASE_URL + "find/warga/" + idWarga;
+      await axios.get(url).then((response) => {
+        this.cariWarga = response.data.result;
+        console.log(this.cariWarga);
+
+        document.getElementById("nama").value = this.cariWarga.nama;
+        document.getElementById("nik").value = this.cariWarga.nik;
+        document.getElementById("tempat_lahir").value =
+          this.cariWarga.tempat_lahir;
+        document.getElementById("no_hp").value = this.cariWarga.no_hp;
+
+        let dbdate = this.cariWarga.tanggal_lahir;
+
+        // Convert the database date into a Date object
+        let dateObj = new Date(dbDate);
+
+        // Format the date as 'YYYY-MM-DD'
+        let year = dateObj.getFullYear();
+        let month = ("0" + (dateObj.getMonth() + 1)).slice(-2); // Months are zero-based
+        let day = ("0" + dateObj.getDate()).slice(-2);
+
+        // Combine into the desired format
+        let formattedDate = `${year}-${month}-${day}`;
+
+        // Set the value of the input field
+        document.getElementById("tanggal_lahir").value = formattedDate;
+
+        let indexku = this.cariWarga.jenis_kelamin;
+
+        document.getElementById("jenis_kelamin").selectedIndex = indexku;
+      });
+    },
   },
   created() {
-    this.listWarga();
-    this.listJenisAnggaran();
+    this.listTypeku();
   },
   setup() {
     const showToast = ref(false);

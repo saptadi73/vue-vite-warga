@@ -9,6 +9,9 @@ import WargaTable from '@/components/asset/WargaTable.vue'
 import WargaKomplitTable from '@/components/asset/WargaKomplitTable.vue'
 import InputSetoran from '@/components/asset/InputSetoran.vue'
 import InputAnggaran from '@/components/asset/InputAnggaran.vue'
+import UpdateKeluarga from '@/components/asset/UpdateKeluarga.vue'
+import UpdateWarga from '@/components/asset/UpdateWarga.vue'
+import UpdateSetoran from '@/components/asset/UpdateSetoran.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -62,6 +65,21 @@ const router = createRouter({
           path: 'input/anggaran',
           name: 'input_anggaran',
           component: InputAnggaran,
+        },
+        {
+          path: 'form/update/kk/:id',
+          name: 'form_update_kk',
+          component: UpdateKeluarga,
+        },
+        {
+          path: 'form/update/warga/:id',
+          name: 'form_update_warga',
+          component: UpdateWarga,
+        },
+        {
+          path: 'form/update/setoran/:id',
+          name: 'form_update_setoran',
+          component: UpdateSetoran,
         },
       ]
     },

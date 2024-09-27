@@ -7,7 +7,7 @@
             <div class="card-header">
               <h3 class="card-title">Form Input Isian Warga</h3>
             </div>
-            <form>
+            <form v-on:submit.prevent>
               <div class="card-body">
                 <div class="form-group">
                   <label for="nik">Nomor NIK</label>
@@ -16,7 +16,7 @@
                     class="form-control"
                     id="nik"
                     placeholder="nomor NIK"
-                    v-model="formValues.nik"
+                    
                   />
                 </div>
 
@@ -27,7 +27,7 @@
                     class="form-control"
                     id="nama"
                     placeholder="Nama"
-                    v-model="formValues.nama"
+                    
                   />
                 </div>
 
@@ -37,7 +37,7 @@
                     <select
                       class="custom-select form-control-border"
                       id="type"
-                      v-model="formValues.id_type"
+                      
                     >
                       <option
                         v-for="resultmu in listType.result"
@@ -55,7 +55,7 @@
                   <select
                     class="custom-select form-control-border"
                     id="jenis_kelamin"
-                    v-model="formValues.jenis_kelamin"
+                    
                   >
                     <option value="1">Laki-laki</option>
                     <option value="0">Perempuan</option>
@@ -78,7 +78,7 @@
                   class="form-control"
                   id="tempat_lahir"
                   placeholder="Tempat Lahir"
-                  v-model="formValues.tempat_lahir"
+                  
                 />
               </div>
               <div>
@@ -97,7 +97,7 @@
                   class="form-control"
                   id="no_hp"
                   placeholder="No HP/WA"
-                  v-model="formValues.no_hp"
+                  
                 />
               </div>
             </div>
@@ -140,6 +140,8 @@ export default {
       formValues: {},
       tanggal_lahir: null,
       hasilTambahWarga: "",
+      jenis_kelaminku:"",
+      type_anggotaku: "",
       cariWarga: {},
       listType: {},
       config: {
@@ -199,8 +201,8 @@ export default {
     },
 
     async findWarga() {
-      const idWarga = this.$routes.params.id;
-      const url = BASE_URL + "find/warga/" + idWarga;
+      const idWarga = this.$route.params.id;
+      const url = BASE_URL + "warga/find/warga/" + idWarga;
       await axios.get(url).then((response) => {
         this.cariWarga = response.data.result;
         console.log(this.cariWarga);
@@ -211,7 +213,7 @@ export default {
           this.cariWarga.tempat_lahir;
         document.getElementById("no_hp").value = this.cariWarga.no_hp;
 
-        let dbdate = this.cariWarga.tanggal_lahir;
+        let dbDate = this.cariWarga.tanggal_lahir;
 
         // Convert the database date into a Date object
         let dateObj = new Date(dbDate);
@@ -227,14 +229,28 @@ export default {
         // Set the value of the input field
         document.getElementById("tanggal_lahir").value = formattedDate;
 
-        let indexku = this.cariWarga.jenis_kelamin;
+        const indexku = this.cariWarga.jenis_kelamin;
 
-        document.getElementById("jenis_kelamin").selectedIndex = indexku;
+        if (indexku==false) {
+          this.jenis_kelaminku="0";
+        }else{
+          this.jenis_kelaminku="1";
+        }
+        console.log(indexku);
+        console.log(this.jenis_kelaminku);
+
+        document.getElementById("jenis_kelamin").value = this.jenis_kelaminku;
+
+        const id_typeku = this.cariWarga.id_type;
+        console.log(id_typeku);
+
+        document.getElementById("type").value=id_typeku;
       });
     },
   },
   created() {
     this.listTypeku();
+    this.findWarga();
   },
   setup() {
     const showToast = ref(false);

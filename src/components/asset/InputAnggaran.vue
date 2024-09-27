@@ -48,10 +48,10 @@
                 </div>
 
                 <div class="form-group">
-                  <label for="jenis_kelamin">Type Arus Anggaran</label>
+                  <label for="type_anggaran">Type Arus Anggaran</label>
                   <select
                     class="custom-select form-control-border"
-                    id="jenis_kelamin"
+                    id="type_anggaran"
                     v-model="formValues.type_anggaran"
                   >
                     <option value="1">Pemasukan</option>

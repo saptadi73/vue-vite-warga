@@ -91,8 +91,8 @@ export default {
     },
 
     async findKeluarga() {
-        const idWargaKK = this.$routes.params.id;
-        const url = BASE_URL + 'find/kk/' + idWargaKK;
+        const idWargaKK = this.$route.params.id;
+        const url = BASE_URL + 'warga/find/kk/' + idWargaKK;
         await axios.get(url)
         .then((response)=>{
           this.cariWargaKK = response.data.result;
@@ -102,6 +102,9 @@ export default {
           document.getElementById("no_kk").value = this.cariWargaKK.no_kk;
         }).catch(error=>{console.log(error)})
     }
+  },
+  created() {
+    this.findKeluarga();
   }
 }
 

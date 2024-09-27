@@ -12,6 +12,7 @@ import InputAnggaran from '@/components/asset/InputAnggaran.vue'
 import UpdateKeluarga from '@/components/asset/UpdateKeluarga.vue'
 import UpdateWarga from '@/components/asset/UpdateWarga.vue'
 import UpdateSetoran from '@/components/asset/UpdateSetoran.vue'
+import UpdateAnggaran from '@/components/asset/UpdateAnggaran.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -80,6 +81,11 @@ const router = createRouter({
           path: 'form/update/setoran/:id',
           name: 'form_update_setoran',
           component: UpdateSetoran,
+        },
+        {
+          path: 'form/update/anggaran/:id',
+          name: 'form_update_anggaran',
+          component: UpdateAnggaran,
         },
       ]
     },

@@ -50,6 +50,7 @@
                     <th>No.HP</th>
                     <th>Blok</th>
                     <th>No.</th>
+                    <th>Action</th>
                   </tr>
                 </thead>
                 <tbody v-if="dataWargaKK">
@@ -64,6 +65,7 @@
                     <td>{{ resultku.no_hp }}</td>
                     <td>{{ resultku.kk.no_blok }}</td>
                     <td>{{ resultku.kk.no_rumah }}</td>
+                    <td><router-link :to="`/asset/form/update/warga/${resultku.id}`">&nbsp;&nbsp;<i class="fa fa-check" aria-hidden="true">Edit</i></router-link></td>
                   </tr>
                 </tbody>
               </table>

@@ -16,7 +16,6 @@
                     class="form-control"
                     id="nik"
                     placeholder="nomor NIK"
-                    
                   />
                 </div>
 
@@ -27,17 +26,15 @@
                     class="form-control"
                     id="nama"
                     placeholder="Nama"
-                    
                   />
                 </div>
 
                 <div class="form-group">
-                  <label for="type">Type Anggota Keluarga</label>
+                  <label for="id_type">Type Anggota Keluarga</label>
                   <div v-if="listType">
                     <select
                       class="custom-select form-control-border"
-                      id="type"
-                      
+                      id="id_type"
                     >
                       <option
                         v-for="resultmu in listType.result"
@@ -55,7 +52,6 @@
                   <select
                     class="custom-select form-control-border"
                     id="jenis_kelamin"
-                    
                   >
                     <option value="1">Laki-laki</option>
                     <option value="0">Perempuan</option>
@@ -78,7 +74,6 @@
                   class="form-control"
                   id="tempat_lahir"
                   placeholder="Tempat Lahir"
-                  
                 />
               </div>
               <div>
@@ -97,7 +92,6 @@
                   class="form-control"
                   id="no_hp"
                   placeholder="No HP/WA"
-                  
                 />
               </div>
             </div>
@@ -105,7 +99,7 @@
               <button
                 type="submit"
                 class="btn btn-primary"
-                @click="submitTambahWarga"
+                @click="submitUpdateWarga"
               >
                 Submit
               </button>
@@ -142,6 +136,7 @@ export default {
       hasilTambahWarga: "",
       jenis_kelaminku:"",
       type_anggotaku: "",
+      id_kknya: "",
       cariWarga: {},
       listType: {},
       config: {
@@ -153,10 +148,14 @@ export default {
   methods: {
     async submitUpdateWarga() {
       const idku = this.$route.params.id;
-      const url = BASE_URL + "warga/add/warga";
-      (this.formValues.tanggal_lahir = this.tanggal_lahir + " 00:00:00"),
-        (this.formValues.id_type = parseInt(this.formValues.id_type));
-      this.formValues.id_kk = parseInt(idku);
+      const url = BASE_URL + "warga/update/warga/" + idku;
+      (this.formValues.tanggal_lahir = document.getElementById("tanggal_lahir").value + " 00:00:00"),
+        (this.formValues.id_type = parseInt(document.getElementById("id_type").value));
+        this.formValues.nik = document.getElementById("nik").value;
+        this.formValues.jenis_kelamin = document.getElementById("jenis_kelamin").value;
+        this.formValues.tempat_lahir = document.getElementById("tempat_lahir").value;
+        this.formValues.no_hp = document.getElementById("no_hp").value;
+        this.formValues.id_kk = parseInt(this.id_kknya);
       await axios
         .post(url, this.formValues, {
           headers: {
@@ -195,8 +194,12 @@ export default {
 
     tutupToast() {
       this.showToast = false;
+      console.log(this.hasilTambahWarga.status);
       if (this.hasilTambahWarga.status == "ok") {
-        this.$router.push("/asset/daftar/kk");
+        
+        const url = "/asset/list/warga/" + this.id_kknya;
+        console.log(url);
+        this.$router.push(url);
       }
     },
 
@@ -212,6 +215,7 @@ export default {
         document.getElementById("tempat_lahir").value =
           this.cariWarga.tempat_lahir;
         document.getElementById("no_hp").value = this.cariWarga.no_hp;
+        this.id_kknya = this.cariWarga.id_kk;
 
         let dbDate = this.cariWarga.tanggal_lahir;
 
@@ -244,7 +248,7 @@ export default {
         const id_typeku = this.cariWarga.id_type;
         console.log(id_typeku);
 
-        document.getElementById("type").value=id_typeku;
+        document.getElementById("id_type").value=id_typeku;
       });
     },
   },

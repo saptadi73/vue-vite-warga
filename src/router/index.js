@@ -6,13 +6,14 @@ import InputAsset from '@/components/asset/InputAsset.vue'
 import KeluargaTable from '@/components/asset/KeluargaTable.vue'
 import InputWarga from '@/components/asset/InputWarga.vue'
 import WargaTable from '@/components/asset/WargaTable.vue'
-import WargaKomplitTable from '@/components/asset/WargaKomplitTable.vue'
 import InputSetoran from '@/components/asset/InputSetoran.vue'
 import InputAnggaran from '@/components/asset/InputAnggaran.vue'
 import UpdateKeluarga from '@/components/asset/UpdateKeluarga.vue'
 import UpdateWarga from '@/components/asset/UpdateWarga.vue'
 import UpdateSetoran from '@/components/asset/UpdateSetoran.vue'
 import UpdateAnggaran from '@/components/asset/UpdateAnggaran.vue'
+import WargaKomplitTable from '@/components/asset/WargaKomplitTable.vue'
+import LaporanSetoran from '@/components/asset/LaporanSetoran.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -53,11 +54,6 @@ const router = createRouter({
           component: WargaTable,
         },
         {
-          path: 'list/table/komplit',
-          name: 'table_komplit',
-          component: WargaKomplitTable,
-        },
-        {
           path: 'setor/warga/:id',
           name: 'setor_warga',
           component: InputSetoran,
@@ -86,6 +82,16 @@ const router = createRouter({
           path: 'form/update/anggaran/:id',
           name: 'form_update_anggaran',
           component: UpdateAnggaran,
+        },
+        {
+          path: 'all/warga',
+          name: 'all_warga',
+          component: WargaKomplitTable,
+        },
+        {
+          path: 'laporan/setoran',
+          name: 'laporan/setoran',
+          component: LaporanSetoran,
         },
       ]
     },

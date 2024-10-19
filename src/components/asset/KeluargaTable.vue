@@ -57,7 +57,7 @@
                         <td>C{{resultku.no_blok}}</td>
                         <td>{{resultku.no_rumah}}</td>
                         <td>{{resultku.no_kk}}</td>
-                        <td><router-link :to="`/asset/new/warga/${resultku.id}`" ><i class="fa fa-user" aria-hidden="true"></i></router-link>&nbsp;&nbsp;<router-link :to="`/asset/list/warga/${resultku.id}`" ><i class="fa fa-list" aria-hidden="true"></i></router-link>&nbsp;&nbsp;<router-link :to="`/asset/setor/warga/${resultku.id}`" ><i class="fa fa-calendar" aria-hidden="true"></i></router-link></td>
+                        <td><router-link :to="`/asset/new/warga/${resultku.id}`" ><i class="fa fa-user" aria-hidden="true"></i></router-link>&nbsp;&nbsp;<router-link :to="`/asset/list/warga/${resultku.id}`" ><i class="fa fa-list" aria-hidden="true"></i></router-link>&nbsp;&nbsp;<router-link :to="`/asset/setor/warga/${resultku.id}`" ><i class="fa fa-calendar" aria-hidden="true"></i></router-link><router-link :to="`/asset/form/update/kk/${resultku.id}`">&nbsp;&nbsp;<i class="fa fa-check" aria-hidden="true">Edit</i></router-link></td>
                       </tr>
                     </tbody>
                   </table>

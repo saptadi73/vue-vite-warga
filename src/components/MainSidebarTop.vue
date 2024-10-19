@@ -57,20 +57,20 @@
             <li class="nav-item">
               <div class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
-                <RouterLink to="/asset/daftar">Daftar Warga</RouterLink>
+                <RouterLink to="/asset/daftar/kk">Daftar KK/Rumah</RouterLink>
               </div>
             </li>
             <li class="nav-item">
-              <a href="" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Pendaftaran KK</p>
-              </a>
+              <div class="nav-link">
+                <RouterLink to="/asset/new/asset">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Pendaftaran KK</p>
+                </RouterLink>
+              </div>
             </li>
             <li class="nav-item">
-              <a href="" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Pendaftaran Warga</p>
-              </a>
+              <RouterLink to="/asset/all/warga" class="nav-link"><i class="far fa-circle nav-icon"></i>
+                <p>Daftar Warga</p></RouterLink>
             </li>
           </ul>
         </li>

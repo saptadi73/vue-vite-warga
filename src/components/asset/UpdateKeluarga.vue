@@ -17,8 +17,6 @@ import axios from 'axios';
                     class="form-control"
                     id="no_kk"
                     placeholder="nomor Kartu Keluarga"
-
-                    v-model="formValues.no_kk"
                   />
                 </div>
 
@@ -26,8 +24,7 @@ import axios from 'axios';
                   <label for="no_blok">Nomor Blok</label>
                   <select
                     class="custom-select form-control-border"
-                    id="no_blok" 
-                    v-model="formValues.no_blok"
+                    id="no_blok"
                   >
                     <option value="1">C01</option>
                     <option value="2">C02</option>
@@ -46,12 +43,11 @@ import axios from 'axios';
                     class="form-control"
                     id="no_rumah"
                     placeholder="nomer rumah"
-                    v-model="formValues.no_rumah"
                   />
                 </div>
               </div>
               <div class="card-footer">
-                <button type="submit" class="btn btn-primary" @click="submitTambahKK">Submit</button>
+                <button type="submit" class="btn btn-primary" @click="submitUpdateKK">Submit</button>
               </div>
             </form>
           </div>
@@ -75,11 +71,12 @@ export default {
   methods: {
 
     async submitUpdateKK() {
-      const idWargaKK = this.$routes.params.id;
+      const idWargaKK = this.$route.params.id;
         const url = BASE_URL + 'warga/update/kk/' + idWargaKK;
-      this.formValues.no_blok= parseInt(this.formValues.no_blok);
-      this.formValues.no_rumah=parseInt(this.formValues.no_rumah);
-      await axios.post('http://localhost:3000/warga/add/kk', this.formValues, {
+      this.formValues.no_blok= parseInt(document.getElementById("no_blok").value);
+      this.formValues.no_rumah=parseInt(document.getElementById("no_rumah").value);
+      this.formValues.no_kk=document.getElementById("no_kk").value;
+      await axios.post(url, this.formValues, {
         headers: {
           'Content-Type':'application/json',
         },

@@ -27,6 +27,24 @@
                   id="tanggal_akhir"
                 ></flat-pickr>
               </div>
+              <div class="form-group">
+                <label for="id_iuran">Jenis Setoran</label>
+                <div v-if="listType">
+                  <select
+                    class="custom-select form-control-border"
+                    id="id_iuran"
+                    v-model="formValues.id_iuran"
+                  >
+                    <option
+                      v-for="resultmu in listType.result"
+                      :key="resultmu.id"
+                      :value="`${resultmu.id}`"
+                    >
+                      {{ resultmu.nama }}
+                    </option>
+                  </select>
+                </div>
+              </div>
               <div>
                 &nbsp;<br>
                 <button
@@ -47,10 +65,10 @@
               <tr>
                 <th>No</th>
                 <th>Nama</th>
-                <th>NIK</th>
                 <th>Blok</th>
                 <th>No.</th>
-                <th>Edit</th>
+                <th>Jumlah</th>
+                <th>Tanggal</th>
               </tr>
             </thead>
             <tbody v-if="hasilAllWarga">
@@ -102,6 +120,7 @@ export default {
     return {
       hasilAllWarga: {},
       formValues: {},
+      listType: {},
       config: {
         enableTime: false, // Hanya date picker
         dateFormat: "Y-m-d", // Format tanggal
@@ -112,6 +131,18 @@ export default {
   },
 
   methods: {
+
+    async listIuran() {
+      const url = BASE_URL + "bayar/list/iuran";
+      await axios
+        .get(url)
+        .then((response) => {
+          this.listType = response.data;
+          console.log(this.listType);
+        })
+        .catch((error) => console.error(error));
+    },
+
     async getAllWarga() {
       // const id_kk = this.$route.params.id;
       const url = BASE_URL + "warga/list/all";
@@ -128,6 +159,7 @@ export default {
   },
   created() {
     this.getAllWarga();
+    this.listIuran();
   },
 };
 </script>

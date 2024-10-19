@@ -28,7 +28,7 @@
                 <td>{{resultku.nik}}</td>
                 <td>C {{resultku.kk.no_blok}}</td>
                 <td>{{resultku.kk.no_rumah}}</td>
-                <td><a :href="`/asset/form/update/warga/${resultku.id}`"><i class="fa fa-magic" aria-hidden="true"></i></a></td>
+                <td><a :href="`/asset/form/update/warga/${resultku.id}`"><i class="fa fa-magic" aria-hidden="true"></i></a>&nbsp;&nbsp;</td>
               </tr>
             </tbody>
             <tfoot>

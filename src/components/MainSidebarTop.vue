@@ -107,9 +107,9 @@
 
         <li class="nav-item">
           <a href="#" class="nav-link">
-            <i class="nav-icon far fa-gem"></i>
+            <i class="nav-icon fa fa-money"></i>
             <p>
-              Pengeluaran&nbsp;&nbsp;&nbsp;
+              Anggaran&nbsp;&nbsp;&nbsp;
               <i class="right fas fa-angle-left"></i>
             </p>
           </a>
@@ -117,19 +117,22 @@
             <li class="nav-item">
               <a href="" class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
-                <p>Daftar Pengeluaran</p>
+                <p>Daftar Anggaran</p>
               </a>
             </li>
             <li class="nav-item">
               <a href="" class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
-                <p>Jenis Pengeluaran</p>
+                <p>Jenis Anggaran</p>
               </a>
             </li>
             <li class="nav-item">
               <a href="" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Pencatatan Pengeluaran</p>
+                <RouterLink to="/asset/input/anggaran">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Input Anggaran</p></RouterLink>
+                
+                
               </a>
             </li>
           </ul>

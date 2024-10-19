@@ -15,6 +15,7 @@ import UpdateAnggaran from '@/components/asset/UpdateAnggaran.vue'
 import WargaKomplitTable from '@/components/asset/WargaKomplitTable.vue'
 import LaporanSetoran from '@/components/asset/LaporanSetoran.vue'
 import CariSetoranTanggal from '@/components/asset/CariSetoranTanggal.vue'
+import LaporanIuranWarga from '@/components/asset/LaporanIuranWarga.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -98,6 +99,11 @@ const router = createRouter({
           path: 'cari/setoran',
           name: 'cari_setoran',
           component: CariSetoranTanggal,
+        },
+        {
+          path: 'cari/iuran',
+          name: 'cari_iuran',
+          component: LaporanIuranWarga,
         },
       ]
     },

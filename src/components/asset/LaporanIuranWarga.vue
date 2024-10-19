@@ -2,26 +2,22 @@
   <div class="row">
     <div class="col-12">
       <div class="card">
-        <h4>Laporan Setoran</h4>
         <div class="card-header">
-          <div>
-            <p></p>
-          </div>
+          <p>Laporan Iuran Warga</p>
+
           <div>
             <form v-on:submit.prevent>
               <div>
-                <label for="tanggal_awal">Tanggal Awal</label>
+                Tanggal Awal
                 <flat-pickr
-                  v-model="tanggal_awal"
                   :config="config"
                   class="form-control"
                   id="tanggal_awal"
                 ></flat-pickr>
               </div>
               <div>
-                <label for="tanggal_akhir">Tanggal Akhir</label>
+                Tanggal Akhir
                 <flat-pickr
-                  v-model="tanggal_akhir"
                   :config="config"
                   class="form-control"
                   id="tanggal_akhir"
@@ -33,7 +29,6 @@
                   <select
                     class="custom-select form-control-border"
                     id="id_iuran"
-                    v-model="formValues.id_iuran"
                   >
                     <option
                       v-for="resultmu in listType.result"
@@ -50,7 +45,7 @@
                 <button
                   type="submit"
                   class="btn btn-primary"
-                  @click="laporanSetoranku"
+                  @click="laporanSetoranonTheSpot"
                 >
                   Submit
                 </button>
@@ -59,6 +54,7 @@
           </div>
         </div>
         <!-- /.card-header -->
+
         <div class="card-body">
           <table id="tableoke" class="table table-bordered table-striped">
             <thead>
@@ -72,21 +68,13 @@
               </tr>
             </thead>
             <tbody v-if="hasilSetoran">
-              <tr
-                v-for="(resultku, index) in hasilSetoran"
-                :key="resultku.id"
-              >
+              <tr v-for="(resultku, index) in hasilSetoran" :key="resultku.id">
                 <td>{{ index + 1 }}</td>
                 <td>{{ resultku.kk.warga[0].nama }}</td>
                 <td>C {{ resultku.kk.no_blok }}</td>
                 <td>{{ resultku.kk.no_rumah }}</td>
-                <td>{{ resultku.nilai }}</td>
-                <td>{{ resultku.tanggal }}</td>
-                <td>
-                  <a :href="`/asset/form/update/warga/${resultku.id}`"
-                    ><i class="fa fa-magic" aria-hidden="true"></i
-                  ></a>
-                </td>
+                <td>{{ formatRupiah(resultku.nilai) }}</td>
+                <td>{{ formatTanggal(resultku.tanggal) }}</td>
               </tr>
             </tbody>
             <tfoot>
@@ -133,6 +121,15 @@ export default {
   },
 
   methods: {
+    async getAllWarga() {
+      // const id_kk = this.$route.params.id;
+      const url = BASE_URL + "warga/list/all";
+      axios.get(url).then((response) => {
+        this.hasilAllWarga = response.data;
+        console.log(this.hasilAllWarga);
+      });
+    },
+
     async listIuran() {
       const url = BASE_URL + "bayar/list/iuran";
       await axios
@@ -144,7 +141,7 @@ export default {
         .catch((error) => console.error(error));
     },
 
-    async getAllWarga() {
+    async getAllSetoran() {
       // const id_kk = this.$route.params.id;
       const url = BASE_URL + "bayar/list/setoran";
       const tanggal = new Date();
@@ -154,36 +151,85 @@ export default {
 
       const formattedDateAkhir = `${year}-${month}-${day}`;
       const formattedDateAwal = `${year}-${month}-01`;
-      const iuran =1;
-      
-      this.formValues.iuran=iuran;
-      this.formValues.tanggal_awal=formattedDateAwal+' 00:00:00';
-      this.formValues.tanggal_akhir=formattedDateAkhir+' 23:59:00';
+      const iuran = 1;
 
-      await axios.post(url, this.formValues,{
+      this.formValues.iuran = iuran;
+      this.formValues.tanggal_awal = formattedDateAwal + " 00:00:00";
+      this.formValues.tanggal_akhir = formattedDateAkhir + " 23:59:00";
+
+      await axios
+        .post(url, this.formValues, {
           headers: {
             "Content-Type": "application/json",
           },
-        }).then((response) => {
+        })
+        .then((response) => {
           this.hasilSetoran = response.data.result;
           console.log(this.hasilSetoran);
           console.log(this.hasilSetoran[0].id);
           console.log(this.hasilSetoran[0].kk.warga[0].nama);
           console.log(this.hasilSetoran[0].kk.no_blok);
           console.log(this.hasilSetoran[0].nilai);
-        }).catch((error) => {
+        })
+        .catch((error) => {
           console.error(error);
         });
-        console.log(this.formValues);
+      console.log(this.formValues);
     },
 
-    async laporanSetoranku() {
-      this.formValues.tanggal_awal = this.tanggal_awal + "00:00:00";
-      this.formValues.tanggal_akhir = this.tanggal_akhir + "00:00:00";
+    formatTanggal(dateString) {
+      const tanggal = new Date(dateString);
+      const localeDate = tanggal.toLocaleDateString("en-GB");
+
+      return localeDate;
+    },
+
+    async laporanSetoranonTheSpot() {
+      this.formValues.iuran = parseInt(
+        document.getElementById("id_iuran").value
+      );
+      this.formValues.tanggal_awal =
+        document.getElementById("tanggal_awal").value + " 00:00:00";
+      this.formValues.tanggal_akhir =
+        document.getElementById("tanggal_akhir").value + " 23:59:59";
+        const url = BASE_URL + "bayar/list/setoran";
+
+        await axios
+        .post(url, this.formValues, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        })
+        .then((response) => {
+          this.hasilSetoran = response.data.result;
+          console.log(this.hasilSetoran);
+          console.log(this.hasilSetoran[0].id);
+          console.log(this.hasilSetoran[0].kk.warga[0].nama);
+          console.log(this.hasilSetoran[0].kk.no_blok);
+          console.log(this.hasilSetoran[0].nilai);
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    },
+
+    formatRupiah(number) {
+      const amount = number;
+
+      // Format as Indonesian Rupiah (IDR)
+      const formattedIDR = new Intl.NumberFormat("id-ID", {
+        style: "currency",
+        currency: "IDR",
+        minimumFractionDigits: 0, // Rupiah usually doesn't show decimals
+        maximumFractionDigits: 0,
+      }).format(amount);
+
+      return formattedIDR;
     },
   },
   created() {
     this.getAllWarga();
+    this.getAllSetoran();
     this.listIuran();
   },
 };

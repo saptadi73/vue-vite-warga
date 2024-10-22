@@ -7,30 +7,52 @@
 
           <div>
             <form v-on:submit.prevent>
-              <div>
-                Tanggal Awal
-                <flat-pickr
-                  :config="config"
-                  class="form-control"
-                  id="tanggal_awal"
-                  v-model="formValues.tanggal_awal"
-                ></flat-pickr>
+              
+              <div class="form-group">
+                <label for="bulan">Bulan</label>
+                <select
+                  class="custom-select form-control-border"
+                  id="bulan"
+                  v-model="formValues.bulan"
+                >
+                  <option value="1">Januari</option>
+                  <option value="2">Februari</option>
+                  <option value="3">Maret</option>
+                  <option value="4">April</option>
+                  <option value="5">Mei</option>
+                  <option value="6">Juni</option>
+                  <option value="7">Juli</option>
+                  <option value="8">Agustus</option>
+                  <option value="9">September</option>
+                  <option value="10">Oktober</option>
+                  <option value="11">November</option>
+                  <option value="12">Desember</option>
+                </select>
               </div>
-              <div>
-                Tanggal Akhir
-                <flat-pickr
-                  :config="config"
-                  class="form-control"
-                  v-model="formValues.tanggal_akhir"
-                  id="tanggal_akhir"
-                ></flat-pickr>
+
+              <div class="form-group">
+                <label for="tahun">Tahun</label>
+                <select
+                  class="custom-select form-control-border"
+                  id="tahun"
+                  v-model="formValues.tahun"
+                >
+                  <option value="2023">2023</option>
+                  <option value="2024">2024</option>
+                  <option value="2025">2025</option>
+                  <option value="2026">2026</option>
+                  <option value="2027">2027</option>
+                  <option value="2028">2028</option>
+                  <option value="2029">2029</option>
+                  <option value="2030">2030</option>
+                </select>
               </div>
               <div class="form-group">
-                <label for="id_iuran">Jenis Setoran</label>
+                <label for="iuran">Jenis Setoran</label>
                 <div v-if="listType">
                   <select
                     class="custom-select form-control-border"
-                    id="id_iuran"
+                    id="iuran"
                     v-model="formValues.iuran"
                   >
                     <option
@@ -48,7 +70,7 @@
                 <button
                   type="submit"
                   class="btn btn-primary"
-                  @click="laporanSetoranonTheSpot"
+                  @click="laporanBelumBayar"
                 >
                   Submit
                 </button>
@@ -66,18 +88,14 @@
                 <th>Nama</th>
                 <th>Blok</th>
                 <th>No.</th>
-                <th>Jumlah</th>
-                <th>Tanggal</th>
               </tr>
             </thead>
-            <tbody v-if="hasilSetoran">
-              <tr v-for="(resultku, index) in hasilSetoran" :key="resultku.id">
+            <tbody v-if="hasilAnggaran">
+              <tr v-for="(resultku, index) in hasilAnggaran" :key="resultku.id">
                 <td>{{ index + 1 }}</td>
-                <td>{{ resultku.kk.warga[0].nama }}</td>
-                <td>C {{ resultku.kk.no_blok }}</td>
-                <td>{{ resultku.kk.no_rumah }}</td>
-                <td>{{ formatRupiah(resultku.nilai) }}</td>
-                <td>{{ formatTanggal(resultku.tanggal) }}</td>
+                <td>{{ resultku.warga[0].nama }}</td>
+                <td>C {{ resultku.no_blok }}</td>
+                <td>{{ resultku.no_rumah }}</td>
               </tr>
             </tbody>
             <tfoot>
@@ -86,8 +104,6 @@
                 <th>Nama</th>
                 <th>Blok</th>
                 <th>No.</th>
-                <th>Jumlah</th>
-                <th>Tanggal</th>
               </tr>
             </tfoot>
           </table>
@@ -102,47 +118,18 @@
 import axios from "axios";
 import { BASE_URL } from "@/base.url.util";
 import { RouterLink } from "vue-router";
-import flatPickr from "vue-flatpickr-component";
 
 export default {
-  components: {
-    flatPickr,
-  },
   data() {
     return {
-      hasilAllWarga: {},
-      hasilSetoran: {},
+      hasilAnggaran: {},
+      hasiltest: {},
       formValues: {},
       listType: {},
-      config: {
-        enableTime: false, // Hanya date picker
-        dateFormat: "Y-m-d", // Format tanggal
-      },
-      tanggal_akhir: null,
-      tanggal_awal: null,
     };
   },
 
   methods: {
-    async getAllWarga() {
-      // const id_kk = this.$route.params.id;
-      const url = BASE_URL + "warga/list/all";
-      axios.get(url).then((response) => {
-        this.hasilAllWarga = response.data;
-        console.log(this.hasilAllWarga);
-      });
-    },
-
-    async listIuran() {
-      const url = BASE_URL + "bayar/list/iuran";
-      await axios
-        .get(url)
-        .then((response) => {
-          this.listType = response.data;
-          console.log(this.listType);
-        })
-        .catch((error) => console.error(error));
-    },
 
     formatTanggal(dateString) {
       const tanggal = new Date(dateString);
@@ -151,31 +138,30 @@ export default {
       return localeDate;
     },
 
-    async laporanSetoranonTheSpot() {
-      this.formValues.iuran = parseInt(
-        this.formValues.iuran
+    async laporanBelumBayar() {
+      this.formValues.bulan = parseInt(
+        this.formValues.bulan
       );
-      this.formValues.tanggal_awal =
-        this.formValues.tanggal_awal + " 00:00:00";
-      this.formValues.tanggal_akhir =
-        this.formValues.tanggal_akhir + " 23:59:59";
-        const url = BASE_URL + "bayar/list/setoran";
+      this.formValues.tahun = parseInt(
+        this.formValues.tahun
+      );
+      this.formValues.iuran = parseInt(
+      this.formValues.iuran
+      );
+      
+      const url = BASE_URL + "bayar/list/belum";
 
-        console.log(this.formValues);
+      console.log(this.formValues);
 
-        await axios
+      await axios
         .post(url, this.formValues, {
           headers: {
             "Content-Type": "application/json",
           },
         })
         .then((response) => {
-          this.hasilSetoran = response.data.result;
-          console.log(this.hasilSetoran);
-          console.log(this.hasilSetoran[0].id);
-          console.log(this.hasilSetoran[0].kk.warga[0].nama);
-          console.log(this.hasilSetoran[0].kk.no_blok);
-          console.log(this.hasilSetoran[0].nilai);
+          this.hasilAnggaran = response.data.result;
+          console.log(this.hasilAnggaran);
         })
         .catch((error) => {
           console.error(error);
@@ -195,9 +181,19 @@ export default {
 
       return formattedIDR;
     },
+
+    async listIuran() {
+      const url = BASE_URL + "bayar/list/iuran";
+      await axios
+        .get(url)
+        .then((response) => {
+          this.listType = response.data;
+          console.log(this.listType);
+        })
+        .catch((error) => console.error(error));
+    },
   },
   created() {
-    this.getAllWarga();
     this.listIuran();
   },
 };

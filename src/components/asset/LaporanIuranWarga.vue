@@ -13,6 +13,7 @@
                   :config="config"
                   class="form-control"
                   id="tanggal_awal"
+                  v-model="formValues.tanggal_awal"
                 ></flat-pickr>
               </div>
               <div>
@@ -20,6 +21,7 @@
                 <flat-pickr
                   :config="config"
                   class="form-control"
+                  v-model="formValues.tanggal_akhir"
                   id="tanggal_akhir"
                 ></flat-pickr>
               </div>
@@ -29,6 +31,7 @@
                   <select
                     class="custom-select form-control-border"
                     id="id_iuran"
+                    v-model="formValues.iuran"
                   >
                     <option
                       v-for="resultmu in listType.result"
@@ -186,31 +189,33 @@ export default {
 
     async laporanSetoranonTheSpot() {
       this.formValues.iuran = parseInt(
-        document.getElementById("id_iuran").value
+        this.formValues.iuran
       );
       this.formValues.tanggal_awal =
-        document.getElementById("tanggal_awal").value + " 00:00:00";
+        this.formValues.tanggal_awal + " 00:00:00";
       this.formValues.tanggal_akhir =
-        document.getElementById("tanggal_akhir").value + " 23:59:59";
+        this.formValues.tanggal_akhir + " 23:59:59";
         const url = BASE_URL + "bayar/list/setoran";
 
-        await axios
-        .post(url, this.formValues, {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        })
-        .then((response) => {
-          this.hasilSetoran = response.data.result;
-          console.log(this.hasilSetoran);
-          console.log(this.hasilSetoran[0].id);
-          console.log(this.hasilSetoran[0].kk.warga[0].nama);
-          console.log(this.hasilSetoran[0].kk.no_blok);
-          console.log(this.hasilSetoran[0].nilai);
-        })
-        .catch((error) => {
-          console.error(error);
-        });
+        console.log(this.formValues);
+
+        // await axios
+        // .post(url, this.formValues, {
+        //   headers: {
+        //     "Content-Type": "application/json",
+        //   },
+        // })
+        // .then((response) => {
+        //   this.hasilSetoran = response.data.result;
+        //   console.log(this.hasilSetoran);
+        //   console.log(this.hasilSetoran[0].id);
+        //   console.log(this.hasilSetoran[0].kk.warga[0].nama);
+        //   console.log(this.hasilSetoran[0].kk.no_blok);
+        //   console.log(this.hasilSetoran[0].nilai);
+        // })
+        // .catch((error) => {
+        //   console.error(error);
+        // });
     },
 
     formatRupiah(number) {

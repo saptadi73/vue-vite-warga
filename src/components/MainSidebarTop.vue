@@ -42,7 +42,6 @@
               <i class="fab fa-hubspot"></i>
             </p>
           </a>
-          
         </li>
 
         <li class="nav-item">
@@ -69,8 +68,10 @@
               </div>
             </li>
             <li class="nav-item">
-              <RouterLink to="/asset/all/warga" class="nav-link"><i class="far fa-circle nav-icon"></i>
-                <p>Daftar Warga</p></RouterLink>
+              <RouterLink to="/asset/all/warga" class="nav-link"
+                ><i class="far fa-circle nav-icon"></i>
+                <p>Daftar Warga</p></RouterLink
+              >
             </li>
           </ul>
         </li>
@@ -85,22 +86,18 @@
           </a>
           <ul class="nav nav-treeview">
             <li class="nav-item">
-              <a href="" class="nav-link">
+              <RouterLink to="/asset/cari/iuran" class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
-                <p>List Jenis Iuran</p>
-              </a>
+                <p>Daftar Setor Iuran</p>
+              </RouterLink>
             </li>
+          </ul>
+          <ul class="nav nav-treeview">
             <li class="nav-item">
-              <a href="" class="nav-link">
+              <RouterLink to="/asset/laporan/belum/iuran" class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
-                <p>Setoran</p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Laporan Iuran</p>
-              </a>
+                <p>Daftar Belum Iuran</p>
+              </RouterLink>
             </li>
           </ul>
         </li>
@@ -116,23 +113,20 @@
           <ul class="nav nav-treeview">
             <li class="nav-item">
               <a href="" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Daftar Anggaran</p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="" class="nav-link">
-                <i class="far fa-circle nav-icon"></i>
-                <p>Jenis Anggaran</p>
-              </a>
-            </li>
-            <li class="nav-item">
-              <a href="" class="nav-link">
                 <RouterLink to="/asset/input/anggaran">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Input Anggaran</p></RouterLink>
-                
-                
+                  <p>Input Anggaran</p></RouterLink
+                >
+              </a>
+            </li>
+          </ul>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a href="" class="nav-link">
+                <RouterLink to="/asset/cari/anggaran">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Laporan Anggaran</p></RouterLink
+                >
               </a>
             </li>
           </ul>
@@ -183,8 +177,6 @@
                 <p>Belum Bayar</p>
               </a>
             </li>
-
-            
           </ul>
         </li>
 
@@ -221,11 +213,8 @@
                 <p>Warehouse</p>
               </a>
             </li>
-
-            
           </ul>
         </li>
-
       </ul>
     </nav>
   </div>

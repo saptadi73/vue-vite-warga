@@ -16,6 +16,11 @@ import WargaKomplitTable from '@/components/asset/WargaKomplitTable.vue'
 import LaporanIuranWarga from '@/components/asset/LaporanIuranWarga.vue'
 import LaporanAnggaranRt from '@/components/asset/LaporanAnggaranRt.vue'
 import LaporanBelumBayarIuran from '@/components/asset/LaporanBelumBayarIuran.vue'
+import TopChartMenu from '@/components/asset/TopChartMenu.vue'
+import JumlahKkAll from '@/components/asset/JumlahKkAll.vue'
+import DaftarWargaAll from '@/components/asset/DaftarWargaAll.vue'
+import DaftarWargaLk from '@/components/asset/DaftarWargaLk.vue'
+import DaftarWargaPr from '@/components/asset/DaftarWargaPr.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -104,6 +109,31 @@ const router = createRouter({
           path: 'laporan/belum/iuran',
           name: 'laporan_belum_iuran',
           component: LaporanBelumBayarIuran,
+        },
+        {
+          path: 'top/chart',
+          name: 'top_chart',
+          component: TopChartMenu,
+        },
+        {
+          path: 'daftar/kk/all',
+          name: 'daftar_kk_all',
+          component: JumlahKkAll,
+        },
+        {
+          path: 'daftar/warga/all',
+          name: 'daftar_warga_all',
+          component: DaftarWargaAll,
+        },
+        {
+          path: 'daftar/warga/lk',
+          name: 'daftar_warga_lk',
+          component: DaftarWargaLk,
+        },
+        {
+          path: 'daftar/warga/pr',
+          name: 'daftar_warga_pr',
+          component: DaftarWargaPr,
         }
       ]
     },

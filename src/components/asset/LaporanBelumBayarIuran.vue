@@ -6,8 +6,7 @@
           <p>Laporan Iuran Warga</p>
 
           <div>
-            <form v-on:submit.prevent>
-              
+            <form v-on:submit.prevent> 
               <div class="form-group">
                 <label for="bulan">Bulan</label>
                 <select

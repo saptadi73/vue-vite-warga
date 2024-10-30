@@ -126,6 +126,7 @@
         <div class="col-md-6">
           <Bar id="my-chart-id" :options="chartOptions" :data="chartData" />
         </div>
+        {{ chartData }}
       </div>
 </template>
 <script>
@@ -156,6 +157,7 @@ export default{
   components: {Bar},
   data() {
     return {
+      loaded: false,
       hasilWargaAll: null,
       hasilWargaKk: null,
       hasilWargaPr: null,
@@ -168,10 +170,10 @@ export default{
       listBulan: [],
       listIuran: [],
       chartData: {
-        labels: [],
+        labels: null,
         datasets: [
           {
-            data: [],
+            data: null,
           },
         ],
       },
@@ -266,14 +268,17 @@ export default{
     },
 
     async iuranBulanan() {
+      this.loaded = false;
       const url = BASE_URL + "bayar/iuran/bulanan";
-      await axios.get(url).then((response) => {
+      try {
+        this.loaded = true;
+        await axios.get(url).then((response) => {
         this.hasilIuranBulanan = response.data.data;
         console.log(this.hasilIuranBulanan);
 
         const myBulan = this.hasilIuranBulanan.map((bulan)=>bulan.bulan);
         const ValueSBulan = Object.values(myBulan);
-        const myJumlah = this.hasilIuranBulanan.map((iuran)=>iuran.jumlah);
+        const myJumlah = this.hasilIuranBulanan.map((iuran)=>parseInt(iuran.jumlah));
         const ValueSJumlah = Object.values(myJumlah);
         this.listBulan = ValueSBulan;
         console.log(ValueSBulan);
@@ -283,6 +288,10 @@ export default{
         this.chartData.labels = ValueSBulan;
         this.chartData.datasets[0].data = ValueSJumlah;
       });
+      } catch (error) {
+        console.log(error);
+      }
+      
     },
 
   },
@@ -294,6 +303,7 @@ export default{
     this.getiuran();
     this.getMasuk();
     this.getKeluar();
+    this.iuranBulanan();
   }
 }
 </script>

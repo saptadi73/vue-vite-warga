@@ -21,6 +21,7 @@ import JumlahKkAll from '@/components/asset/JumlahKkAll.vue'
 import DaftarWargaAll from '@/components/asset/DaftarWargaAll.vue'
 import DaftarWargaLk from '@/components/asset/DaftarWargaLk.vue'
 import DaftarWargaPr from '@/components/asset/DaftarWargaPr.vue'
+import BarChart from '../components/BarChart.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -134,6 +135,11 @@ const router = createRouter({
           path: 'daftar/warga/pr',
           name: 'daftar_warga_pr',
           component: DaftarWargaPr,
+        },
+        {
+          path: 'barchart',
+          name: 'barchart',
+          component: BarChart
         }
       ]
     },

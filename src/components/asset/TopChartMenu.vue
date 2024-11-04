@@ -124,37 +124,33 @@
       </div>
       <div class="row">
         <div class="col-md-6">
-          <Bar id="my-chart-id" :options="chartOptions" :data="chartData" />
+          <BarchartIuran/>
         </div>
-        {{ chartData }}
+        <div class="col-md-6">
+          <BarchartMasuk/>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-6">
+          <LinechartKeluar/>
+        </div>
+        <div class="col-md-6">
+          <PiechartIuran/>
+        </div>
       </div>
 </template>
 <script>
 import axios from "axios";
 import { BASE_URL } from "@/base.url.util";
 import { RouterLink } from "vue-router";
-import { Bar } from "vue-chartjs";
-import {
-  Chart as ChartJS,
-  Title,
-  Tooltip,
-  Legend,
-  BarElement,
-  CategoryScale,
-  LinearScale,
-} from "chart.js";
+import BarchartIuran from "@/components/asset/BarchartIuran.vue";
+import BarchartMasuk from '@/components/asset/BarchartMasuk.vue';
+import LinechartKeluar from '@/components/asset/LinechartKeluar.vue';
+import PiechartIuran from '@/components/asset/PiechartIuran.vue';
 
-ChartJS.register(
-  Title,
-  Tooltip,
-  Legend,
-  BarElement,
-  CategoryScale,
-  LinearScale
-);
 
 export default{
-  components: {Bar},
+  components: {BarchartIuran,BarchartMasuk,LinechartKeluar, PiechartIuran},
   data() {
     return {
       loaded: false,
@@ -303,7 +299,6 @@ export default{
     this.getiuran();
     this.getMasuk();
     this.getKeluar();
-    this.iuranBulanan();
   }
 }
 </script>

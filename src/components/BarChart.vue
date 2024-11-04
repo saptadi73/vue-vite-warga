@@ -13,7 +13,7 @@ import { BASE_URL } from '@/base.url.util';
 ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale)
 
 export default {
-  name: 'BarchartIuran',
+  name: 'BarChart',
   components: { Bar },
   data: () => ({
     loaded: false,
@@ -21,7 +21,7 @@ export default {
       labels: [],
       datasets: [
        {
-        label: ['Iuran'],
+        label: ['Bulan pertama'],
         data: [],
         backgroundColor: [
       'rgba(255, 99, 132, 0.2)',

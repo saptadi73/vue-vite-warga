@@ -1,4 +1,3 @@
-import axios from 'axios';
 <template>
   <section>
     <div class="container-fluid">

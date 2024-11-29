@@ -22,10 +22,7 @@ export default {
       datasets: [
         {
           data: [],
-          backgroundColor: [
-            "rgba(255, 99, 132, 0.2)",
-            "rgba(23, 159, 64, 0.2)",
-          ],
+          backgroundColor: ["rgb(255, 99, 132)", "rgb(54, 162, 235)"],
           hoverOffset: 4,
         },
       ],

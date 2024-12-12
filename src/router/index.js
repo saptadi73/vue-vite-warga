@@ -145,6 +145,11 @@ const router = createRouter({
           path: 'upload/filekk/:id',
           name: 'upload_kk',
           component: () => import('../components/asset/InputFileKeluarga.vue')
+        },
+        {
+          path: 'upload/filektp/:id',
+          name: 'upload_kk',
+          component: () => import('../components/asset/InputFileWarga.vue')
         }
       ]
     },

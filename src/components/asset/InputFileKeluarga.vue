@@ -43,14 +43,14 @@
                 </div>
                 <div class="h-auto d-inline-block">
                   Preview Image
-                  <img :src="previewImage" v-if="previewImage" />
+                  <img :src="previewImage" v-if="previewImage" width="350"/>
                 </div>
               </div>
               <div class="card-footer">
                 <button
                   type="submit"
                   class="btn btn-primary"
-                  @click="submitTambahKK"
+                  @click="kirimKK"
                 >
                   Submit
                 </button>
@@ -61,12 +61,23 @@
       </div>
     </div>
   </section>
+  <ToastSuccess
+    v-if="showToast"
+    :title="title"
+    :description="description"
+    v-on:closeButton="tutupToast"
+  ></ToastSuccess>
 </template>
 <script>
 import axios from "axios";
-import router from "../router";
+import { BASE_URL } from "../../base.url.util";
+import ToastSuccess from "@/components/ToastSuccess.vue";
 import { ref } from "vue";
+
 export default {
+  components: {
+    ToastSuccess,
+  },
   data() {
     return {
       formValues: {},
@@ -77,25 +88,7 @@ export default {
     };
   },
   methods: {
-    async submitTambahKK() {
-      this.formValues.no_blok = parseInt(this.formValues.no_blok);
-      this.formValues.no_rumah = parseInt(this.formValues.no_rumah);
-      await axios
-        .post("http://localhost:3000/warga/add/kk", this.formValues, {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        })
-        .then((response) => {
-          this.hasilTambahKK = response.data;
-          console.log(this.hasilTambahKK);
-          this.$router.push("/asset/daftar/kk");
-        })
-        .catch((error) => {
-          console.error(error);
-        });
-    },
-
+    
     selectImage() {
       this.$refs.fileInput.click();
     },
@@ -105,6 +98,54 @@ export default {
       this.namaGambar = event.target.files[0].name;
       this.previewImage = URL.createObjectURL(event.target.files[0]);
     },
+
+    async kirimKK() {
+      const idku = this.$route.params.id;
+      const url = BASE_URL + "warga/fotokk";
+      const formDataku = new FormData();
+      formDataku.append("file",this.file);
+      formDataku.append("id_kk", idku);
+      formDataku.append("nama",this.formValues.nama_file);
+      formDataku.append("keterangan", this.formValues.keterangan);
+
+      axios
+      .post(url, formDataku, {
+          Headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        })
+        .then((response) => {
+          console.log(response);
+          this.hasilTambahKK = response.data;
+          if (this.hasilTambahKK.status == "ok") {
+            this.showToast = true;
+            this.title = this.hasilTambahKK.status;
+            this.description = this.hasilTambahKK.message;
+          } else {
+            this.showToast = true;
+            this.title = this.hasilTambahKK.status;
+            this.description = this.hasilTambahKK.message;
+          }
+        })
+
+
+    },
+
+    tutupToast() {
+      this.showToast = false;
+      if(this.hasilTambahKK.status == "ok")
+      {
+        let urlkuya = "/asset/daftar/kk";
+        this.$router.push(urlkuya);
+      }
+    },
+  },
+  setup() {
+    const showToast = ref(false);
+
+    return {
+      showToast,
+    };
   },
 };
 </script>

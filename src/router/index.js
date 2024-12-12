@@ -140,6 +140,11 @@ const router = createRouter({
           path: 'barchart',
           name: 'barchart',
           component: BarChart
+        },
+        {
+          path: 'upload/filekk/:id',
+          name: 'upload_kk',
+          component: () => import('../components/asset/InputFileKeluarga.vue')
         }
       ]
     },

@@ -150,6 +150,11 @@ const router = createRouter({
           path: 'upload/filektp/:id',
           name: 'upload_kk',
           component: () => import('../components/asset/InputFileWarga.vue')
+        },
+        {
+          path: 'viewktp/:id',
+          name: 'viewktp',
+          component: () => import('../components/asset/ViewKtp.vue'),
         }
       ]
     },

@@ -5,7 +5,7 @@
         <div class="col-md-6">
           <div class="card card-primary">
             <div class="card-header">
-              <h3 class="card-title">Form Upload File Keluarga</h3>
+              <h3 class="card-title">Form Upload Kartu Keluarga Keluarga</h3>
             </div>
             <form v-on:submit.prevent>
               <div class="card-body">

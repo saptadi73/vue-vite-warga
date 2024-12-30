@@ -1,5 +1,5 @@
 <template>
-  <div
+  <!-- <div
     class="toast-container position-fixed bottom-0 end-0 p-3"
     style="z-index: 11"
   >
@@ -25,6 +25,22 @@
         >Close</button>
       </div>
     </div>
+  </div> -->
+  <div class="modal" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">{{title}}</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" @click="$emit('closeButton')"></button>
+        </div>
+        <div class="modal-body">
+          <p>{{description}}</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" @click="$emit('closeButton')">Close</button>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -34,24 +50,7 @@ export default {
   props: {
     title: String,
     description: String,
-    autoHide: {
-      type: Boolean,
-      default: true,
-    },
-    delay: {
-      type: Number,
-      default: 5000, // 5 seconds by default
-    },
   },
-  mounted() {
-    // Use Bootstrap's JavaScript toast API to show the toast
-    const toastEl = this.$refs.toast;
-    const toastInstance = new bootstrap.Toast(toastEl, {
-      autohide: this.autoHide,
-      delay: this.delay,
-    });
-    toastInstance.show();
-  }
 }
 
 </script>

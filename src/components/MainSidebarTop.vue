@@ -56,19 +56,19 @@
             <li class="nav-item">
               <div class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
-                <RouterLink to="/asset/daftar/kk">Daftar KK/Rumah</RouterLink>
+                <RouterLink to="/warga/daftar/kk">Daftar KK/Rumah</RouterLink>
               </div>
             </li>
             <li class="nav-item">
               <div class="nav-link">
-                <RouterLink to="/asset/new/asset">
+                <RouterLink to="/warga/new/asset">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Pendaftaran KK</p>
                 </RouterLink>
               </div>
             </li>
             <li class="nav-item">
-              <RouterLink to="/asset/all/warga" class="nav-link"
+              <RouterLink to="/warga/all/warga" class="nav-link"
                 ><i class="far fa-circle nav-icon"></i>
                 <p>Daftar Warga</p></RouterLink
               >
@@ -86,7 +86,7 @@
           </a>
           <ul class="nav nav-treeview">
             <li class="nav-item">
-              <RouterLink to="/asset/cari/iuran" class="nav-link">
+              <RouterLink to="/laporan/cari/iuran" class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Daftar Setor Iuran</p>
               </RouterLink>
@@ -94,7 +94,7 @@
           </ul>
           <ul class="nav nav-treeview">
             <li class="nav-item">
-              <RouterLink to="/asset/laporan/belum/iuran" class="nav-link">
+              <RouterLink to="/laporan/belum/iuran" class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Daftar Belum Iuran</p>
               </RouterLink>
@@ -113,7 +113,7 @@
           <ul class="nav nav-treeview">
             <li class="nav-item">
               <a href="" class="nav-link">
-                <RouterLink to="/asset/input/anggaran">
+                <RouterLink to="/anggaran/input">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Input Anggaran</p></RouterLink
                 >
@@ -123,7 +123,7 @@
           <ul class="nav nav-treeview">
             <li class="nav-item">
               <a href="" class="nav-link">
-                <RouterLink to="/asset/cari/anggaran">
+                <RouterLink to="/anggaran/cari">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Laporan Anggaran</p></RouterLink
                 >

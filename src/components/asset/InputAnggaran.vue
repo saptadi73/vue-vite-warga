@@ -29,6 +29,26 @@
                 </div>
 
                 <div class="form-group">
+                  <div class="form-group">
+                    
+                    <label for="type_anggaran">Type Arus Anggaran</label>
+                    <select
+                      class="custom-select form-control-border"
+                      id="type_anggaran"
+                      v-model="formValues.type_anggaran"
+                      @change="pilihType"
+                    >
+                    <option value="0" selected>Pilih Type Anggaran</option>
+                    <option
+                    v-for="resultmu in listTypeAnggaranku.result"
+                    :key="resultmu.id"
+                    :value="`${resultmu.id}`"
+                  >
+                    {{ resultmu.type }}
+                  </option>
+                    </select>
+                  </div>
+
                   <label for="id_jenis_anggaran">Jenis Pembiayaan/Pemasukan</label>
                   <div v-if="listType">
                     <select
@@ -47,17 +67,7 @@
                   </div>
                 </div>
 
-                <div class="form-group">
-                  <label for="type_anggaran">Type Arus Anggaran</label>
-                  <select
-                    class="custom-select form-control-border"
-                    id="type_anggaran"
-                    v-model="formValues.type_anggaran"
-                  >
-                    <option value="1">Pemasukan</option>
-                    <option value="0">Pengeluaran</option>
-                  </select>
-                </div>
+                
 
 
               </div>
@@ -81,7 +91,7 @@
                 />
               </div>
               <div>
-                <label for="tanggal">Tanggal</label>
+                <span><b>Tanggal</b></span>
                 <flat-pickr
                   v-model="tanggal"
                   :config="config"
@@ -138,10 +148,12 @@ export default {
   data() {
     return {
       formValues: {},
+      formType: {},
       tanggal: null,
       hasilTambahWarga: "",
       hasilCariWarga: "",
       listType: {},
+      listTypeAnggaranku: {},
       listNama: {},
       config: {
         enableTime: false, // Hanya date picker
@@ -181,15 +193,26 @@ export default {
       console.log(this.formValues);
     },
 
-    async listJenisAnggaran() {
+    async listJenisAnggaran(id_type_anggaran) {
+      
       const url = BASE_URL + "bayar/list/jenis/anggaran";
+      this.formType.id_type_anggaran = parseInt(id_type_anggaran);
       await axios
-        .get(url)
+        .post(url,this.formType, {
+          headers: {
+            "Content-Type": "application/json",
+          },
+        })
         .then((response) => {
           this.listType = response.data;
           console.log(this.listType);
         })
         .catch((error) => console.error(error));
+    },
+
+    pilihType() {
+      const typekuAnggaran = document.getElementById("type_anggaran").value;
+      this.listJenisAnggaran(typekuAnggaran);
     },
 
     async listWarga() {
@@ -203,6 +226,17 @@ export default {
         .catch((error) => console.error(error));
     },
 
+    async listTypeAnggran() {
+      const url = BASE_URL + "bayar/list/type/anggaran";
+      await axios
+        .get(url)
+        .then((response) => {
+          this.listTypeAnggaranku = response.data;
+          console.log(this.listTypeAnggaranku);
+        })
+        .catch((error) => console.error(error));
+    },
+
     tutupToast() {
       this.showToast = false;
       if (this.hasilTambahWarga.status == "ok") {
@@ -212,7 +246,7 @@ export default {
   },
   created() {
     this.listWarga();
-    this.listJenisAnggaran();
+    this.listTypeAnggran();
   },
   setup() {
     const showToast = ref(false);

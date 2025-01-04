@@ -25,7 +25,7 @@
                   <td>{{index+1}}</td>
                   <td>{{resultku.nama}}</td>
                   <td>{{resultku.nik}}</td>
-                  <td>C {{resultku.kk.no_blok}}</td>
+                  <td>{{resultku.kk.no_blok}}</td>
                   <td>{{resultku.kk.no_rumah}}</td>
                 </tr>
               </tbody>
@@ -59,9 +59,9 @@
     },
   
     methods: {
-      async getWargaLk() {
+      async getAllWarga() {
         // const id_kk = this.$route.params.id;
-        const url = BASE_URL + "warga/daftar/warga/pr";
+        const url = BASE_URL + "warga/list/all";
         axios.get(url).then((response) => {
           this.hasilAllWarga = response.data;
           console.log(this.hasilAllWarga);
@@ -69,7 +69,7 @@
       },
     },
     created() {
-      this.getWargaLk();
+      this.getAllWarga();
     },
   };
   </script>

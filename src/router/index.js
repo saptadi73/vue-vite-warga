@@ -82,8 +82,6 @@ const router = createRouter({
           name: "all_warga",
           component: WargaKomplitTable,
         },
-        
-        
         {
           path: "top/chart",
           name: "top_chart",
@@ -189,6 +187,23 @@ const router = createRouter({
           component: InputAnggaran,
         },
       ]
+    },
+    {
+      path: "/user",
+      name: "user",
+      component: () => import("../views/UserLayoutView.vue"),
+      children:[
+        {
+          path: "add/level/user",
+          name: "add_level_user",
+          component: () =>("../components/user/InputLevelUser.vue"),
+        },
+        {
+          path: "daftar/level",
+          name: "user_daftar_level",
+          component: () => import("../components/user/DaftarLevelUser.vue"),
+        }
+      ],
     },
   ],
 });

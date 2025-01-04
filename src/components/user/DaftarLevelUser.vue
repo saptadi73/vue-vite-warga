@@ -11,10 +11,8 @@
               <thead>
                 <tr>
                   <th>No</th>
-                  <th>Nama</th>
-                  <th>NIK</th>
-                  <th>Blok</th>
-                  <th>No.</th>
+                  <th>Level</th>
+                  <th>Keterangan</th>
                 </tr>
               </thead>
               <tbody v-if="hasilAllWarga">
@@ -24,18 +22,14 @@
                 >
                   <td>{{index+1}}</td>
                   <td>{{resultku.nama}}</td>
-                  <td>{{resultku.nik}}</td>
-                  <td>C {{resultku.kk.no_blok}}</td>
-                  <td>{{resultku.kk.no_rumah}}</td>
+                  <td>{{resultku.keterangan}}</td>
                 </tr>
               </tbody>
               <tfoot>
                 <tr>
-                  <th>No</th>
-                  <th>Nama</th>
-                  <th>NIK</th>
-                  <th>Blok</th>
-                  <th>No.</th>
+                    <th>No</th>
+                    <th>Level</th>
+                    <th>Keterangan</th>
                 </tr>
               </tfoot>
             </table>
@@ -61,7 +55,7 @@
     methods: {
       async getWargaLk() {
         // const id_kk = this.$route.params.id;
-        const url = BASE_URL + "warga/daftar/warga/lk";
+        const url = BASE_URL + "user/daftar/level/user";
         axios.get(url).then((response) => {
           this.hasilAllWarga = response.data;
           console.log(this.hasilAllWarga);

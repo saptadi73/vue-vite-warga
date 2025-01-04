@@ -28,13 +28,13 @@
                     id="no_blok" 
                     v-model="formValues.no_blok"
                   >
-                    <option value="1">C01</option>
-                    <option value="2">C02</option>
-                    <option value="8">C08</option>
-                    <option value="9">C09</option>
-                    <option value="10">C10</option>
-                    <option value="11">C11</option>
-                    <option value="12">C12</option></select
+                    <option value="C01">C01</option>
+                    <option value="C02">C02</option>
+                    <option value="C08">C08</option>
+                    <option value="C09">C09</option>
+                    <option value="C10">C10</option>
+                    <option value="C11">C11</option>
+                    <option value="C12">C12</option></select
                   >
                 </div>
 

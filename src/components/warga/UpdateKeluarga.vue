@@ -21,25 +21,27 @@ import axios from 'axios';
                 </div>
 
                 <div class="form-group">
-                  <label for="no_blok">Nomor Blok</label>
-                  <select
-                    class="custom-select form-control-border"
-                    id="no_blok"
-                  >
-                    <option value="1">C01</option>
-                    <option value="2">C02</option>
-                    <option value="8">C08</option>
-                    <option value="9">C09</option>
-                    <option value="10">C10</option>
-                    <option value="11">C11</option>
-                    <option value="12">C12</option></select
-                  >
+                  <label for="blok">Daftar Blok</label>
+                  <div v-if="listBlok">
+                    <select
+                      class="custom-select form-control-border"
+                      id="blok"
+                    >
+                      <option
+                        v-for="resultmu in listBlok.result"
+                        :key="resultmu.id"
+                        :value="`${resultmu.id}`"
+                      >
+                        {{ resultmu.blok }}
+                      </option>
+                    </select>
+                  </div>
                 </div>
 
                 <div class="form-group">
                   <label for="no_rumah">No Rumah</label>
                   <input
-                    type="text"
+                    type="number"
                     class="form-control"
                     id="no_rumah"
                     placeholder="nomer rumah"
@@ -66,6 +68,7 @@ export default {
       formValues: {},
       hasilTambahKK: '',
       cariWargaKK: {},
+      listBlok: '',
     }
   },
   methods: {
@@ -73,9 +76,10 @@ export default {
     async submitUpdateKK() {
       const idWargaKK = this.$route.params.id;
         const url = BASE_URL + 'warga/update/kk/' + idWargaKK;
-      this.formValues.no_blok= parseInt(document.getElementById("no_blok").value);
+      this.formValues.id_blok= parseInt(document.getElementById("blok").value);
       this.formValues.no_rumah=parseInt(document.getElementById("no_rumah").value);
       this.formValues.no_kk=document.getElementById("no_kk").value;
+      console.log(this.formValues);
       await axios.post(url, this.formValues, {
         headers: {
           'Content-Type':'application/json',
@@ -83,7 +87,7 @@ export default {
       }).then((response)=>{
         this.hasilTambahKK = response.data;
         console.log(this.hasilTambahKK);
-        this.$router.push('/asset/daftar/kk');
+        this.$router.push('/warga/daftar/kk');
       }).catch(error=>{console.error(error)});
     },
 
@@ -94,13 +98,23 @@ export default {
         .then((response)=>{
           this.cariWargaKK = response.data.result;
           console.log(this.cariWargaKK);
-          document.getElementById("no_blok").value = this.cariWargaKK.no_blok;
+          document.getElementById("blok").value = this.cariWargaKK.blok.id;
           document.getElementById("no_rumah").value = this.cariWargaKK.no_rumah
           document.getElementById("no_kk").value = this.cariWargaKK.no_kk;
         }).catch(error=>{console.log(error)})
-    }
+    },
+    async daftarBlok() {
+      const url = BASE_URL + 'warga/daftar/blok';
+      await axios.get(url)
+      .then((response)=>{
+        this.listBlok = response.data;
+        console.log(this.listBlok);
+      })
+      .catch(error=>{console.error(error)});
+    },
   },
   created() {
+    this.daftarBlok();
     this.findKeluarga();
   }
 }

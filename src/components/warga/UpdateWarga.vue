@@ -152,6 +152,7 @@ export default {
       (this.formValues.tanggal_lahir = document.getElementById("tanggal_lahir").value + " 00:00:00"),
         (this.formValues.id_type = parseInt(document.getElementById("id_type").value));
         this.formValues.nik = document.getElementById("nik").value;
+        this.formValues.nama = document.getElementById("nama").value;
         this.formValues.jenis_kelamin = document.getElementById("jenis_kelamin").value;
         this.formValues.tempat_lahir = document.getElementById("tempat_lahir").value;
         this.formValues.no_hp = document.getElementById("no_hp").value;
@@ -165,15 +166,9 @@ export default {
         .then((response) => {
           this.hasilTambahWarga = response.data;
           console.log(this.hasilTambahWarga);
-          if (this.hasilTambahWarga.status == "ok") {
-            this.showToast = true;
-            this.title = this.hasilTambahWarga.status;
-            this.description = this.hasilTambahWarga.message;
-          } else {
-            this.showToast = true;
-            this.title = this.hasilTambahWarga.status;
-            this.description = this.hasilTambahWarga.message;
-          }
+          const idku = this.$route.params.id;
+          const urlpush = '/warga/list/warga/' + idku
+          this.$router.push(urlpush);
         })
         .catch((error) => {
           console.error(error);

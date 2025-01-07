@@ -4,12 +4,12 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1>Asset</h1>
+          <h1>Anggota Keluarga</h1>
         </div>
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="#">Home</a></li>
-            <li class="breadcrumb-item active">Asset</li>
+            <li class="breadcrumb-item active">Anggota Keluarga</li>
           </ol>
         </div>
       </div>
@@ -63,9 +63,9 @@
                     <td>{{ resultku.nik }}</td>
                     <td>{{ resultku.type.nama }}</td>
                     <td>{{ resultku.no_hp }}</td>
-                    <td>{{ resultku.kk.no_blok }}</td>
+                    <td>{{ resultku.kk.blok.blok }}</td>
                     <td>{{ resultku.kk.no_rumah }}</td>
-                    <td><router-link :to="`/asset/form/update/warga/${resultku.id}`">&nbsp;&nbsp;<i class="fa fa-check" aria-hidden="true">Edit</i></router-link></td>
+                    <td><router-link :to="`/warga/form/update/warga/${resultku.id}`">&nbsp;&nbsp;<i class="fa fa-check" aria-hidden="true">Edit</i></router-link></td>
                   </tr>
                 </tbody>
               </table>
@@ -101,7 +101,7 @@ export default {
     },
     tambahWargaKK() {
       const id_kk = this.$route.params.id;
-      const url = "/asset/new/warga/" + id_kk;
+      const url = "/warga/new/warga/" + id_kk;
       this.$router.push(url);
     },
   },

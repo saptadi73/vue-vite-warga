@@ -56,15 +56,35 @@
             <li class="nav-item">
               <div class="nav-link">
                 <i class="far fa-circle nav-icon"></i>
+                <RouterLink to="/warga/daftar/blok">Daftar Blok Rumah</RouterLink>
+              </div>
+            </li>
+            <li class="nav-item">
+              <div class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
                 <RouterLink to="/warga/daftar/kk">Daftar KK/Rumah</RouterLink>
               </div>
             </li>
             <li class="nav-item">
               <div class="nav-link">
-                <RouterLink to="/warga/new/asset">
+                <RouterLink to="/warga/new/kk">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Pendaftaran KK</p>
                 </RouterLink>
+              </div>
+            </li>
+            <li class="nav-item">
+              <div class="nav-link">
+                <RouterLink to="/warga/new/blok">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Isi Blok Rumah</p>
+                </RouterLink>
+              </div>
+            </li>
+            <li class="nav-item">
+              <div class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <RouterLink to="/warga/daftar/type">Daftar Type Warga</RouterLink>
               </div>
             </li>
             <li class="nav-item">
@@ -72,6 +92,14 @@
                 ><i class="far fa-circle nav-icon"></i>
                 <p>Daftar Warga</p></RouterLink
               >
+            </li>
+            <li class="nav-item">
+              <div class="nav-link">
+                <RouterLink to="/warga/add/type">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Isi Type Warga</p>
+                </RouterLink>
+              </div>
             </li>
           </ul>
         </li>

@@ -163,15 +163,9 @@ export default {
         .then((response) => {
           this.hasilTambahWarga = response.data;
           console.log(this.hasilTambahWarga);
-          if (this.hasilTambahWarga.status == "ok") {
-            this.showToast = true;
-            this.title = this.hasilTambahWarga.status;
-            this.description = this.hasilTambahWarga.message;
-          } else {
-            this.showToast = true;
-            this.title = this.hasilTambahWarga.status;
-            this.description = this.hasilTambahWarga.message;
-          }
+          const idku = this.$route.params.id;
+          const urlpush = '/warga/list/warga/' + idku
+          this.$router.push(urlpush);
         })
         .catch((error) => {
           console.error(error);

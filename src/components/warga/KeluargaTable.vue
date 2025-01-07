@@ -9,7 +9,7 @@
             <div class="col-sm-6">
               <ol class="breadcrumb float-sm-right">
                 <li class="breadcrumb-item"><a href="#">Home</a></li>
-                <li class="breadcrumb-item active">Asset</li>
+                <li class="breadcrumb-item active">Keluarga</li>
               </ol>
             </div>
           </div>
@@ -54,10 +54,10 @@
                     <tbody v-if="dataKeluarga">
                       <tr v-for="(resultku,index) in dataKeluarga.result":key="resultku.id">
                         <td>{{index+1}}</td>
-                        <td>C{{resultku.no_blok}}</td>
+                        <td>{{resultku.blok.blok}}</td>
                         <td>{{resultku.no_rumah}}</td>
                         <td>{{resultku.no_kk}}</td>
-                        <td><router-link :to="`/asset/new/warga/${resultku.id}`" ><i class="fa fa-user" aria-hidden="true"></i></router-link>&nbsp;&nbsp;<router-link :to="`/asset/list/warga/${resultku.id}`" ><i class="fa fa-list" aria-hidden="true"></i></router-link>&nbsp;&nbsp;<router-link :to="`/asset/setor/warga/${resultku.id}`" ><i class="fa fa-calendar" aria-hidden="true"></i></router-link><router-link :to="`/asset/form/update/kk/${resultku.id}`">&nbsp;&nbsp;<i class="fa fa-check" aria-hidden="true">Edit</i></router-link></td>
+                        <td><router-link :to="`/warga/new/warga/${resultku.id}`" ><i class="fa fa-user" aria-hidden="true"></i></router-link>&nbsp;&nbsp;<router-link :to="`/warga/list/warga/${resultku.id}`" ><i class="fa fa-list" aria-hidden="true"></i></router-link>&nbsp;&nbsp;<router-link :to="`/warga/setor/warga/${resultku.id}`" ><i class="fa fa-calendar" aria-hidden="true"></i></router-link><router-link :to="`/warga/form/update/kk/${resultku.id}`">&nbsp;&nbsp;<i class="fa fa-check" aria-hidden="true">Edit</i></router-link></td>
                       </tr>
                     </tbody>
                   </table>
@@ -94,7 +94,7 @@ import { BASE_URL } from '../../base.url.util';
                 })
             },
             tambahKK() {
-              this.$router.push('/asset/new/asset');
+              this.$router.push('/warga/new/kk');
             }
         },
         created(){

@@ -2,25 +2,14 @@ import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
 import AssetLayoutView from "@/views/AssetLayoutView.vue";
 import AssetTable from "@/components/asset/AssetTable.vue";
-import InputAsset from "@/components/asset/InputAsset.vue";
-import KeluargaTable from "@/components/asset/KeluargaTable.vue";
-import InputWarga from "@/components/asset/InputWarga.vue";
-import WargaTable from "@/components/asset/WargaTable.vue";
 import InputSetoran from "@/components/asset/InputSetoran.vue";
 import InputAnggaran from "@/components/asset/InputAnggaran.vue";
-import UpdateKeluarga from "@/components/asset/UpdateKeluarga.vue";
-import UpdateWarga from "@/components/asset/UpdateWarga.vue";
 import UpdateSetoran from "@/components/asset/UpdateSetoran.vue";
 import UpdateAnggaran from "@/components/asset/UpdateAnggaran.vue";
-import WargaKomplitTable from "@/components/asset/WargaKomplitTable.vue";
 import LaporanIuranWarga from "@/components/asset/LaporanIuranWarga.vue";
 import LaporanAnggaranRt from "@/components/asset/LaporanAnggaranRt.vue";
 import LaporanBelumBayarIuran from "@/components/asset/LaporanBelumBayarIuran.vue";
 import TopChartMenu from "@/components/asset/TopChartMenu.vue";
-import JumlahKkAll from "@/components/asset/JumlahKkAll.vue";
-import DaftarWargaAll from "@/components/asset/DaftarWargaAll.vue";
-import DaftarWargaLk from "@/components/asset/DaftarWargaLk.vue";
-import DaftarWargaPr from "@/components/asset/DaftarWargaPr.vue";
 import BarChart from "../components/BarChart.vue";
 
 const router = createRouter({
@@ -39,33 +28,32 @@ const router = createRouter({
         {
           path: "daftar/kk",
           name: "daftar_kk",
-          component: KeluargaTable,
+          component: () => import("@/components/warga/KeluargaTable.vue"),
         },
         {
           path: "new/warga/:id",
           name: "new_warga",
-          component: InputWarga,
+          component: () => import("@/components/warga/InputWarga.vue"),
         },
         {
           path: "list/warga/:id",
           name: "list_warga_kk",
-          component: WargaTable,
+          component: () => import("@/components/warga/WargaTable.vue"),
         },
         {
           path: "setor/warga/:id",
           name: "setor_warga",
           component: InputSetoran,
         },
-        
         {
           path: "form/update/kk/:id",
           name: "form_update_kk",
-          component: UpdateKeluarga,
+          component: () => import("@/components/warga/UpdateKeluarga.vue"),
         },
         {
           path: "form/update/warga/:id",
           name: "form_update_warga",
-          component: UpdateWarga,
+          component: () => import("@/components/warga/UpdateWarga.vue"),
         },
         {
           path: "form/update/setoran/:id",
@@ -80,7 +68,7 @@ const router = createRouter({
         {
           path: "all/warga",
           name: "all_warga",
-          component: WargaKomplitTable,
+          component: () => import("@/components/warga/WargaKomplitTable.vue"),
         },
         {
           path: "top/chart",
@@ -90,22 +78,22 @@ const router = createRouter({
         {
           path: "daftar/kk/all",
           name: "daftar_kk_all",
-          component: JumlahKkAll,
+          component: () => import("@/components/warga/JumlahKkAll.vue"),
         },
         {
           path: "daftar/warga/all",
           name: "daftar_warga_all",
-          component: DaftarWargaAll,
+          component: () => import("@/components/warga/DaftarWargaAll.vue"),
         },
         {
           path: "daftar/warga/lk",
           name: "daftar_warga_lk",
-          component: DaftarWargaLk,
+          component: () => import("@/components/warga/DaftarWargaLk.vue"),
         },
         {
           path: "daftar/warga/pr",
           name: "daftar_warga_pr",
-          component: DaftarWargaPr,
+          component: () => import("@/components/warga/DaftarWargaPr.vue"),
         },
         {
           path: "barchart",
@@ -115,22 +103,52 @@ const router = createRouter({
         {
           path: "upload/filekk/:id",
           name: "upload_kk",
-          component: () => import("../components/asset/InputFileKeluarga.vue"),
+          component: () => import("../components/warga/InputFileKeluarga.vue"),
         },
         {
           path: "upload/filektp/:id",
           name: "upload_kk",
-          component: () => import("../components/asset/InputFileWarga.vue"),
+          component: () => import("../components/warga/InputFileWarga.vue"),
         },
         {
           path: "viewktp/:id",
           name: "viewktp",
-          component: () => import("../components/asset/ViewKtp.vue"),
+          component: () => import("../components/warga/ViewKtp.vue"),
         },
         {
-          path: "new/asset",
-          name: "new_asset",
-          component: InputAsset,
+          path: "new/kk",
+          name: "new_kk",
+          component: () => import("@/components/warga/InputAsset.vue"),
+        },
+        {
+          path: "new/blok",
+          name: "new_blok",
+          component: () => import("@/components/warga/InputBlok.vue"),
+        },
+        {
+          path: "update/blok/:id",
+          name: "update_blok",
+          component: () => import("@/components/warga/UpdateBlok.vue"),
+        },
+        {
+          path: "daftar/blok",
+          name: "daftar_blok",
+          component: () => import("@/components/warga/DaftarBlok.vue"),
+        },
+        {
+          path: "add/type",
+          name: "add_type",
+          component: () => import("@/components/warga/InputTypeKeluarga.vue"),
+        },
+        {
+          path: "update/type/:id",
+          name: "update_type",
+          component: () => import("@/components/warga/UpdateTypeKeluarga.vue"),
+        },
+        {
+          path: "daftar/type",
+          name: "daftar_type",
+          component: () => import("@/components/warga/DaftarTypeKeluarga.vue"),
         },
       ],
     },

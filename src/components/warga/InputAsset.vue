@@ -22,26 +22,28 @@
                 </div>
 
                 <div class="form-group">
-                  <label for="no_blok">Nomor Blok</label>
-                  <select
-                    class="custom-select form-control-border"
-                    id="no_blok" 
-                    v-model="formValues.no_blok"
-                  >
-                    <option value="C01">C01</option>
-                    <option value="C02">C02</option>
-                    <option value="C08">C08</option>
-                    <option value="C09">C09</option>
-                    <option value="C10">C10</option>
-                    <option value="C11">C11</option>
-                    <option value="C12">C12</option></select
-                  >
+                  <label for="id_blok">Daftar Blok</label>
+                  <div v-if="listBlok">
+                    <select
+                      class="custom-select form-control-border"
+                      id="id_blok"
+                      v-model="formValues.id_blok"
+                    >
+                      <option
+                        v-for="resultmu in listBlok.result"
+                        :key="resultmu.id"
+                        :value="`${resultmu.id}`"
+                      >
+                        {{ resultmu.blok }}
+                      </option>
+                    </select>
+                  </div>
                 </div>
 
                 <div class="form-group">
                   <label for="no_rumah">No Rumah</label>
                   <input
-                    type="text"
+                    type="number"
                     class="form-control"
                     id="no_rumah"
                     placeholder="nomer rumah"
@@ -62,28 +64,46 @@
 </template>
 <script>
 import axios from 'axios'
+import { BASE_URL } from "../../base.url.util";
+
 export default {
   data() {
     return {
       formValues: {},
       hasilTambahKK: '',
+      listBlok:'',
     }
   },
   methods: {
 
     async submitTambahKK() {
-      this.formValues.no_blok= parseInt(this.formValues.no_blok);
-      this.formValues.no_rumah=parseInt(this.formValues.no_rumah);
-      await axios.post('http://localhost:3000/warga/add/kk', this.formValues, {
+      this.formValues.id_blok= parseInt(this.formValues.id_blok);
+      this.formValues.no_rumah = this.formValues.no_rumah;
+      const url = BASE_URL + 'warga/add/kk';
+      console.log(this.formValues);
+      await axios.post(url, this.formValues, {
         headers: {
           'Content-Type':'application/json',
         },
       }).then((response)=>{
         this.hasilTambahKK = response.data;
         console.log(this.hasilTambahKK);
-        this.$router.push('/asset/daftar/kk');
+        this.$router.push('/warga/daftar/kk');
       }).catch(error=>{console.error(error)});
+    },
+
+    async daftarBlok() {
+      const url = BASE_URL + 'warga/daftar/blok';
+      await axios.get(url)
+      .then((response)=>{
+        this.listBlok = response.data;
+        console.log(this.listBlok);
+      })
+      .catch(error=>{console.error(error)});
     }
+  },
+  created() {
+    this.daftarBlok();
   }
 }
 

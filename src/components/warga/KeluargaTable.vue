@@ -46,7 +46,8 @@
                       <tr>
                         <th>No</th>
                         <th>Blok</th>
-                        <th>No. Rumah</th>
+                        <th>No</th>
+                        <th>Nama KK</th>
                         <th>No.KK</th>
                         <th>Keterangan</th>
                       </tr>
@@ -56,6 +57,8 @@
                         <td>{{index+1}}</td>
                         <td>{{resultku.blok.blok}}</td>
                         <td>{{resultku.no_rumah}}</td>
+                        <td v-if="resultku.warga[0]">{{resultku.warga[0].nama}}</td>
+                        <td v-else><i>--</i></td>
                         <td>{{resultku.no_kk}}</td>
                         <td><router-link :to="`/warga/new/warga/${resultku.id}`" ><i class="fa fa-user" aria-hidden="true"></i></router-link>&nbsp;&nbsp;<router-link :to="`/warga/list/warga/${resultku.id}`" ><i class="fa fa-list" aria-hidden="true"></i></router-link>&nbsp;&nbsp;<router-link :to="`/warga/setor/warga/${resultku.id}`" ><i class="fa fa-calendar" aria-hidden="true"></i></router-link><router-link :to="`/warga/form/update/kk/${resultku.id}`">&nbsp;&nbsp;<i class="fa fa-check" aria-hidden="true">Edit</i></router-link></td>
                       </tr>

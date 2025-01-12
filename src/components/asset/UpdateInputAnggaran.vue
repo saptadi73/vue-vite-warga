@@ -15,7 +15,6 @@
                     <select
                       class="custom-select form-control-border"
                       id="id_warga"
-                      v-model="formValues.id_warga"
                     >
                       <option
                         v-for="resultmu in listNama.result"
@@ -54,7 +53,6 @@
                     <select
                       class="custom-select form-control-border"
                       id="id_jenis_anggaran"
-                      v-model="formValues.id_jenis_anggaran"
                     >
                       <option
                         v-for="resultmu in listType.result"
@@ -83,15 +81,15 @@
                   class="form-control"
                   id="nilai"
                   placeholder="00000"
-                  v-model="formValues.nilai"
                 />
               </div>
-              <div>
-                <span><b>Tanggal</b></span>
-                <FlatpickrComponent
-                  v-model="tanggal"
-                  :options="{ dateFormat: 'Y-m-d' }"
-                  placeholder="Pilih Tanggal"
+              <div class="form-group">
+                <label for="tanggal">Tanggal</label>
+                <input
+                  type="text"
+                  class="form-control"
+                  id="tanggal"
+                  
                 />
               </div>
 
@@ -102,7 +100,6 @@
                   class="form-control"
                   id="keterangan"
                   placeholder="keterangan"
-                  v-model="formValues.keterangan"
                 />
               </div>
             </div>
@@ -120,17 +117,25 @@
       </div>
     </div>
   </section>
+  <ToastSuccess
+    v-if="showToast"
+    :title="title"
+    :description="description"
+    v-on:closeButton="tutupToast"
+  ></ToastSuccess>
 </template>
 <script>
 import axios from "axios";
 import { BASE_URL } from "../../base.url.util";
+import flatPickr from "vue-flatpickr-component";
 import "flatpickr/dist/flatpickr.css"; // CSS default dari Flatpickr
-import FlatpickrComponent from "../FlatpickrComponent.vue";
+import ToastSuccess from "@/components/ToastSuccess.vue";
 import { ref } from "vue";
 
 export default {
   components: {
-    FlatpickrComponent,
+    flatPickr,
+    ToastSuccess,
   },
   data() {
     return {
@@ -219,15 +224,85 @@ export default {
         })
         .catch((error) => console.error(error));
     },
+
+    tutupToast() {
+      this.showToast = false;
+      if (this.hasilTambahWarga.status == "ok") {
+        this.$router.push("/asset/daftar/kk");
+      }
+    },
+
+    async findAnggaran() {
+      const idku = this.$route.params.id;
+      const url = BASE_URL + "bayar/find/anggaran/" + idku;
+
+      await axios
+        .get(url)
+        .then((response) => {
+          this.hasilCariAnggaran = response.data;
+          console.log(this.hasilCariAnggaran);
+
+          document.getElementById("id_warga").selectedIndex =
+            this.hasilCariAnggaran.result.warga.id;
+
+          const typeku = this.hasilCariAnggaran.result.type_anggaran.id;
+
+          console.log(typeku);
+
+          document.getElementById("id_type_anggaran").selectedIndex = typeku;
+
+          this.listJenisAnggaran(typeku);
+
+          document.getElementById("id_jenis_anggaran").value =
+            this.hasilCariAnggaran.result.jenis_anggaran.id;
+
+          let dbDate = this.hasilCariAnggaran.result.tanggal;
+
+          // Convert the database date into a Date object
+          let dateObj = new Date(dbDate);
+
+          // Format the date as 'YYYY-MM-DD'
+          let year = dateObj.getFullYear();
+          let month = ("0" + (dateObj.getMonth() + 1)).slice(-2); // Months are zero-based
+          let day = ("0" + dateObj.getDate()).slice(-2);
+
+          // Combine into the desired format
+          let formattedDate = `${year}-${month}-${day}`;
+          console.log(formattedDate);
+
+          // Set the value of the input field
+          document.getElementById("tanggal").value = formattedDate;
+
+          document.getElementById("nilai").value =
+            this.hasilCariAnggaran.result.nilai;
+
+          document.getElementById("keterangan").value =
+            this.hasilCariAnggaran.result.keterangan;
+        })
+        .catch((error) => {
+          console.error(error);
+        });
+    },
+
+    async setDatePickr() {
+
+        const datemu = flatPickr("#tanggal");
+        const dateToSet = "03/03/2025"; // ISO 8601 format
+      datemu.setDate(dateToSet, true);
+    }
   },
   created() {
     this.listWarga();
     this.listTypeAnggran();
+    this.findAnggaran();
+
   },
   setup() {
-    const selectedDate = ref(null);
+    const showToast = ref(false);
 
-    return { selectedDate };
+    return {
+      showToast,
+    };
   },
 };
 </script>

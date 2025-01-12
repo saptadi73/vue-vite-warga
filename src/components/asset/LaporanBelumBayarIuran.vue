@@ -84,7 +84,7 @@
             <thead>
               <tr>
                 <th>No</th>
-                <th>Nama</th>
+                <th>Nama Kepala Keluarga</th>
                 <th>Blok</th>
                 <th>No.</th>
               </tr>
@@ -93,7 +93,7 @@
               <tr v-for="(resultku, index) in hasilAnggaran" :key="resultku.id">
                 <td>{{ index + 1 }}</td>
                 <td>{{ resultku.warga[0].nama }}</td>
-                <td>C {{ resultku.no_blok }}</td>
+                <td>{{ resultku.blok.blok }}</td>
                 <td>{{ resultku.no_rumah }}</td>
               </tr>
             </tbody>
@@ -117,8 +117,13 @@
 import axios from "axios";
 import { BASE_URL } from "@/base.url.util";
 import { RouterLink } from "vue-router";
+import FlatpickrComponent from "../FlatpickrComponent.vue";
+import { ref } from "vue";
 
 export default {
+  components: {
+    FlatpickrComponent,
+  },
   data() {
     return {
       hasilAnggaran: {},
@@ -195,5 +200,12 @@ export default {
   created() {
     this.listIuran();
   },
+  setup() {
+    const selectedDate = ref(null);
+
+    return {
+      selectedDate,
+    };
+  }
 };
 </script>

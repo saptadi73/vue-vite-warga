@@ -63,7 +63,7 @@ const router = createRouter({
         {
           path: "form/update/anggaran/:id",
           name: "form_update_anggaran",
-          component: UpdateAnggaran,
+          component: () => import("@/components/asset/UpdateInputAnggaran.vue"),
         },
         {
           path: "all/warga",
@@ -149,6 +149,11 @@ const router = createRouter({
           path: "daftar/type",
           name: "daftar_type",
           component: () => import("@/components/warga/DaftarTypeKeluarga.vue"),
+        },
+        {
+          path: "test/flatpickr",
+          name: "test_flatpickr",
+          component: () => import("@/components/asset/TestFlatpickr.vue"),
         },
       ],
     },

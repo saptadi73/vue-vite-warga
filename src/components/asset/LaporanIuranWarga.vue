@@ -8,22 +8,20 @@
           <div>
             <form v-on:submit.prevent>
               <div>
-                Tanggal Awal
-                <flat-pickr
-                  :config="config"
-                  class="form-control"
-                  id="tanggal_awal"
+                <label for="tanggal">Tanggal Awal</label>
+                <FlatpickrComponent
                   v-model="formValues.tanggal_awal"
-                ></flat-pickr>
+                  :options="{ dateFormat: 'Y-m-d' }"
+                  placeholder="Pilih tanggal"
+                />
               </div>
               <div>
-                Tanggal Akhir
-                <flat-pickr
-                  :config="config"
-                  class="form-control"
+                <label for="tanggal">Tanggal Akhir</label>
+                <FlatpickrComponent
                   v-model="formValues.tanggal_akhir"
-                  id="tanggal_akhir"
-                ></flat-pickr>
+                  :options="{ dateFormat: 'Y-m-d' }"
+                  placeholder="Pilih tanggal"
+                />
               </div>
               <div class="form-group">
                 <label for="id_iuran">Jenis Setoran</label>
@@ -74,7 +72,7 @@
               <tr v-for="(resultku, index) in hasilSetoran" :key="resultku.id">
                 <td>{{ index + 1 }}</td>
                 <td>{{ resultku.kk.warga[0].nama }}</td>
-                <td>C {{ resultku.kk.no_blok }}</td>
+                <td>{{ resultku.kk.blok.blok }}</td>
                 <td>{{ resultku.kk.no_rumah }}</td>
                 <td>{{ formatRupiah(resultku.nilai) }}</td>
                 <td>{{ formatTanggal(resultku.tanggal) }}</td>
@@ -102,11 +100,13 @@
 import axios from "axios";
 import { BASE_URL } from "@/base.url.util";
 import { RouterLink } from "vue-router";
-import flatPickr from "vue-flatpickr-component";
+import FlatpickrComponent from "../FlatpickrComponent.vue";
+import { ref } from "vue";
 
 export default {
   components: {
-    flatPickr,
+   
+    FlatpickrComponent,
   },
   data() {
     return {
@@ -172,10 +172,6 @@ export default {
         .then((response) => {
           this.hasilSetoran = response.data.result;
           console.log(this.hasilSetoran);
-          console.log(this.hasilSetoran[0].id);
-          console.log(this.hasilSetoran[0].kk.warga[0].nama);
-          console.log(this.hasilSetoran[0].kk.no_blok);
-          console.log(this.hasilSetoran[0].nilai);
         })
         .catch((error) => {
           console.error(error);
@@ -200,5 +196,12 @@ export default {
     this.getAllWarga();
     this.listIuran();
   },
+  setup() {
+    const selectedDate = ref(null);
+
+    return {
+      selectedDate,
+    };
+  }
 };
 </script>

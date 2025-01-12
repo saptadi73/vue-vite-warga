@@ -69,12 +69,11 @@
               </div>
               <div>
                 <label for="tanggal">Tanggal</label>
-                <flat-pickr
+                <FlatpickrComponent
                   v-model="tanggal"
-                  :config="config"
-                  class="form-control"
-                  id="tanggal"
-                ></flat-pickr>
+                  :options="{ dateFormat: 'Y-m-d' }"
+                  placeholder="Pilih tanggal"
+                />
               </div>
 
               <div class="form-group">
@@ -102,26 +101,18 @@
       </div>
     </div>
   </section>
-  <ToastSuccess
-    v-if="showToast"
-    :title="title"
-    :description="description"
-    v-on:closeButton="tutupToast"
-  ></ToastSuccess>
 </template>
 <script>
 import axios from "axios";
 import { BASE_URL } from "../../base.url.util";
-import flatPickr from "vue-flatpickr-component";
 import "flatpickr/dist/flatpickr.css"; // CSS default dari Flatpickr
-import ToastSuccess from "@/components/ToastSuccess.vue";
-import { ref } from "vue";
 
+import { ref } from "vue";
+import FlatpickrComponent from "../FlatpickrComponent.vue";
 
 export default {
   components: {
-    flatPickr,
-    ToastSuccess,
+    FlatpickrComponent,
   },
   data() {
     return {
@@ -130,10 +121,6 @@ export default {
       hasilTambahWarga: "",
       hasilCariWarga: "",
       listType: {},
-      config: {
-        enableTime: false, // Hanya date picker
-        dateFormat: "Y-m-d", // Format tanggal
-      },
     };
   },
   methods: {
@@ -142,7 +129,7 @@ export default {
       const url = BASE_URL + "bayar/add/setor";
       (this.formValues.tanggal = this.tanggal + " 00:00:00"),
         (this.formValues.id_iuran = parseInt(this.formValues.id_iuran));
-        this.formValues.nilai = parseInt(this.formValues.nilai);
+      this.formValues.nilai = parseInt(this.formValues.nilai);
       this.formValues.id_kk = parseInt(idku);
       await axios
         .post(url, this.formValues, {
@@ -153,15 +140,7 @@ export default {
         .then((response) => {
           this.hasilTambahWarga = response.data;
           console.log(this.hasilTambahWarga);
-          if (this.hasilTambahWarga.status == "ok") {
-            this.showToast = true;
-            this.title = this.hasilTambahWarga.status;
-            this.description = this.hasilTambahWarga.message;
-          } else {
-            this.showToast = true;
-            this.title = this.hasilTambahWarga.status;
-            this.description = this.hasilTambahWarga.message;
-          }
+          this.$router.push("/warga/daftar/kk");
         })
         .catch((error) => {
           console.error(error);
@@ -178,13 +157,6 @@ export default {
           console.log(this.listType);
         })
         .catch((error) => console.error(error));
-    },
-
-    tutupToast() {
-      this.showToast = false;
-      if (this.hasilTambahWarga.status == "ok") {
-        this.$router.push("/asset/daftar/kk");
-      }
     },
 
     async findWarga() {
@@ -211,10 +183,10 @@ export default {
     this.findWarga();
   },
   setup() {
-    const showToast = ref(false);
+    const selectedDate = ref(null);
 
     return {
-      showToast,
+      selectedDate,
     };
   },
 };

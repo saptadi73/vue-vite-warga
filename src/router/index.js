@@ -151,10 +151,10 @@ const router = createRouter({
           component: () => import("@/components/warga/DaftarTypeKeluarga.vue"),
         },
         {
-          path: "test/flatpickr",
-          name: "test_flatpickr",
-          component: () => import("@/components/asset/TestFlatpickr.vue"),
-        },
+          path: "test/map",
+          name: "test_map",
+          component: () => import("@/components/GetMapLocation.vue"),
+        }
       ],
     },
     {
@@ -227,6 +227,18 @@ const router = createRouter({
           component: () => import("../components/user/DaftarLevelUser.vue"),
         }
       ],
+    },
+    {
+      path: "/profile",
+      name: "profile",
+      component: () => import("../views/ProfileLayoutView.vue"),
+      children:[
+        {
+          path: "input",
+          name: "input_profile",
+          component: () => import("../components/asset/InputEntity.vue"),
+        },
+      ]
     },
   ],
 });

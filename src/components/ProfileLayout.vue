@@ -2,8 +2,8 @@
     <div class="wrapper">
       <nav class="main-header navbar navbar-expand navbar-white navbar-light">
         <LeftSidebar
-        title1="User"
-        title2="Administration"
+        title1="Profile"
+        title2="Data"
         />
         <RightSidebar />
       </nav>
@@ -23,10 +23,10 @@
   </template>
   
   <script>
-  import LeftSidebar from '../LeftSidebar.vue'
-  import RightSidebar from '../RightSidebar.vue'
-  import MainSidebarTop from '../MainSidebarTop.vue'
-  import FooterLayout from '../FooterLayout.vue'
+  import LeftSidebar from './LeftSidebar.vue'
+  import RightSidebar from './RightSidebar.vue'
+  import MainSidebarTop from './MainSidebarTop.vue'
+  import FooterLayout from './FooterLayout.vue'
   export default {
     components: { LeftSidebar,
     RightSidebar, MainSidebarTop,
